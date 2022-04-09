@@ -24,8 +24,17 @@ typedef struct {
             uint16_t _16;
             uint8_t _8[2];
         } gpr[8];
-  
-        rtlreg_t eax, ecx, edx, ebx, esp, ebp, esi, edi;
+        
+        struct {
+            rtlreg_t eax;
+            rtlreg_t ecx;
+            rtlreg_t edx;
+            rtlreg_t ebx;
+            rtlreg_t esp;
+            rtlreg_t ebp;
+            rtlreg_t esi;
+            rtlreg_t edi;
+        };
     };
     vaddr_t pc;
   
