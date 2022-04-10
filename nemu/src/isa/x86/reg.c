@@ -49,10 +49,10 @@ void isa_reg_display() {
     }
     printf("\n");
 
-    for (int i = 0; i < 8; i++) {
-        printf("  %s: 0x%X\n", regsw[i], cpu.gpr[i]._16);
-    }
-    printf("\n");
+    //`for (int i = 0; i < 8; i++) {
+    //    printf("  %s: 0x%X\n", regsw[i], cpu.gpr[i]._16);
+    //}
+    //printf("\n");
 
 
     
