@@ -45,7 +45,7 @@ void isa_reg_display() {
     printf("register display\n");
 
     for (int i = 0; i < 8; i++) {
-        printf("  %s: 0x%X\n", regsl[i], cpu.gpr[i]._32);
+        printf("  %s: 0x%08X\n", regsl[i], cpu.gpr[i]._32);
     }
     printf("\n");
 
@@ -54,7 +54,7 @@ void isa_reg_display() {
     //}
     //printf("\n");
 
-    printf(" pc: 0x%0X\n",cpu.pc);
+    printf(" pc: 0x%08X\n",cpu.pc);
     
 }
 
