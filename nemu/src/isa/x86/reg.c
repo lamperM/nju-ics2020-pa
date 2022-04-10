@@ -54,7 +54,7 @@ void isa_reg_display() {
     //}
     //printf("\n");
 
-    printf(" pc: 0x%X\n",cpu.pc);
+    printf(" pc: 0x%0X\n",cpu.pc);
     
 }
 
