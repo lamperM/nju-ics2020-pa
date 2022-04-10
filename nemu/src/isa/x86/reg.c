@@ -43,6 +43,13 @@ void reg_test() {
 
 void isa_reg_display() {
     printf("register display\n");
+
+    for (int i = 0; i < 8; i++) {
+        printf("  %s: %d\n", regsl[i], cpu.gpr[i]._32);
+    }
+    printf("\n");
+
+    
 }
 
 word_t isa_reg_str2val(const char *s, bool *success) {
