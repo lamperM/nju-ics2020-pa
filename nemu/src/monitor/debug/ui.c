@@ -38,7 +38,15 @@ static int cmd_q(char *args) {
 }
 
 static int cmd_si(char *args) {
+    uint32_t nsteps;
 
+    if (args == NULL) {
+        nsteps = 1;
+    } else {
+        nsteps = (uint32_t)atoi(args);
+    }    
+
+    cpu_exec(nsteps); 
 
     return 0;
 }
