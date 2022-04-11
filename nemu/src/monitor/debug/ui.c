@@ -108,8 +108,8 @@ static int cmd_x(char *args) {
             printf("invailed argument\n");
             return 0;
         } else {
-            addr = atol(arg);
-            printf("instruct number: %d, addr: %lu\n", ins_num, addr);
+            addr =(uint64_t)strtol(arg, NULL, 16);
+            printf("instruct number: %d, addr: 0x%0lx\n", ins_num, addr);
         }
 
     }
