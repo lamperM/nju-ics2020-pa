@@ -99,16 +99,15 @@ static int cmd_x(char *args) {
     char *arg = strtok(NULL, " ");
     
     if (arg == NULL) {
-        printf("invailed arguments\n");
-        return 0;
+        goto invaild;
     } else {
         int byte_num = atoi(arg);
         uint64_t g_addr = 0; // guest addr
         uint8_t *h_addr = 0; // host addr
+        
         arg = strtok(NULL, " ");
         if (arg == NULL) {
-            printf("invailed argument\n");
-            return 0;
+            goto invaild;
         } else {
             g_addr = (uint64_t)strtol(arg, NULL, 16);
             printf("0x%0lx:", g_addr);
@@ -122,6 +121,10 @@ static int cmd_x(char *args) {
     }
 
     return 0;
+invaild:
+    printf("invailed arguments\n");
+    return 0;
+    
 }
 static int cmd_info(char *args) {
     char *arg = strtok(NULL, " ");
