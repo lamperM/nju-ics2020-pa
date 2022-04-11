@@ -101,6 +101,17 @@ static int cmd_x(char *args) {
         printf("invailed arguments\n");
         return 0;
     } else {
+        int ins_num = atoi(arg);
+        uint64_t addr = 0;
+        arg = strtok(NULL, " ");
+        if (arg == NULL) {
+            printf("invailed argument\n");
+            return 0;
+        } else {
+            addr = atoi(arg);
+            printf("instruct number: %d, addr: %lu\n", ins_num, addr);
+        }
+
     }
 
     return 0;
