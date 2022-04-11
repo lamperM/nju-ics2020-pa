@@ -95,22 +95,27 @@ static int cmd_help(char *args) {
 }
 
 static int cmd_x(char *args) {
+    extern void* guest_to_host(paddr_t addr);
     char *arg = strtok(NULL, " ");
     
     if (arg == NULL) {
         printf("invailed arguments\n");
         return 0;
     } else {
-        int ins_num = atoi(arg);
-        uint64_t addr = 0;
+        int byte_num = atoi(arg);
+        uint64_t g_addr = 0; // guest addr
+        int *h_addr = 0; // host addr
         arg = strtok(NULL, " ");
         if (arg == NULL) {
             printf("invailed argument\n");
             return 0;
         } else {
-            addr = (uint64_t)strtol(arg, NULL, 16);
-            printf("instruct number: %d, addr: 0x%0lx\n", ins_num, addr);
-            
+            g_addr = (uint64_t)strtol(arg, NULL, 16);
+            printf("addr: 0x%0lx", g_addr);
+            for (int i = 0; i < byte_num; i++) {
+                h_addr = (int *)guest_to_host(g_addr);
+                printf(" 0x%02x", *h_addr);
+            }
         }
 
     }
