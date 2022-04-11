@@ -50,6 +50,7 @@ static int cmd_si(char *args) {
 
     return 0;
 }
+static int cmd_x(char *args);
 static int cmd_help(char *args);
 static int cmd_info(char *args);
 
@@ -63,6 +64,7 @@ static struct {
   { "q", "Exit NEMU", cmd_q },
   { "si", "single step execution", cmd_si },
   { "info", "Display information about following arguements", cmd_info },
+  { "x", "Display memory", cmd_x },
   /* TODO: Add more commands */
 
 };
@@ -92,6 +94,17 @@ static int cmd_help(char *args) {
   return 0;
 }
 
+static int cmd_x(char *args) {
+    char *arg = strtok(NULL, " ");
+    
+    if (arg == NULL) {
+        printf("invailed arguments\n");
+        return 0;
+    } else {
+    }
+
+    return 0;
+}
 static int cmd_info(char *args) {
     char *arg = strtok(NULL, " ");
 
