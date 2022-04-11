@@ -104,7 +104,7 @@ static int cmd_x(char *args) {
     } else {
         int byte_num = atoi(arg);
         uint64_t g_addr = 0; // guest addr
-        int *h_addr = 0; // host addr
+        uint8_t *h_addr = 0; // host addr
         arg = strtok(NULL, " ");
         if (arg == NULL) {
             printf("invailed argument\n");
@@ -113,7 +113,7 @@ static int cmd_x(char *args) {
             g_addr = (uint64_t)strtol(arg, NULL, 16);
             printf("0x%0lx:", g_addr);
             for (int i = 0; i < byte_num; i++) {
-                h_addr = (int *)guest_to_host(g_addr);
+                h_addr = (uint8_t *)guest_to_host(g_addr);
                 printf(" 0x%02x", *(h_addr + i));
             }
             printf("\n");
