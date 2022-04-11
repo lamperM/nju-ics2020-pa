@@ -108,7 +108,7 @@ static int cmd_x(char *args) {
             printf("invailed argument\n");
             return 0;
         } else {
-            addr = atoi(arg);
+            addr = atol(arg);
             printf("instruct number: %d, addr: %lu\n", ins_num, addr);
         }
 
