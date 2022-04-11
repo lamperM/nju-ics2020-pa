@@ -111,11 +111,12 @@ static int cmd_x(char *args) {
             return 0;
         } else {
             g_addr = (uint64_t)strtol(arg, NULL, 16);
-            printf("addr: 0x%0lx", g_addr);
+            printf("0x%0lx:", g_addr);
             for (int i = 0; i < byte_num; i++) {
                 h_addr = (int *)guest_to_host(g_addr);
-                printf(" 0x%02x", *h_addr);
+                printf(" 0x%02x", *(h_addr + i));
             }
+            printf("\n");
         }
 
     }
