@@ -120,7 +120,7 @@ static bool make_token(char *e) {
               tokens[nr_token].type = TK_NUM;
               if (substr_len >= 32) {
                   printf("number is longer than 32\n");
-                  return false;
+                  assert(0);
               }
               memcpy(tokens[nr_token].str, (const char *)substr_start, substr_len);
               break;
