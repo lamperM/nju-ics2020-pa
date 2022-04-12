@@ -9,7 +9,12 @@ enum {
   TK_NOTYPE = 256, TK_EQ,
 
   /* TODO: Add more token types */
-
+  TK_PLUS,
+  TK_SUB,
+  TK_MUX,
+  TK_DIV,
+  TK_LBRKT,
+  TK_RBRKT,
 };
 
 static struct rule {
@@ -22,8 +27,14 @@ static struct rule {
    */
 
   {" +", TK_NOTYPE},    // spaces
-  {"\\+", '+'},         // plus
+  {"\\+", TK_PLUS},         // plus
   {"==", TK_EQ},        // equal
+  {"\\-", TK_SUB},         // sub
+  {"\\*", TK_MUX},         // mux
+  {"\\/", TK_DIV},         // div
+  {"\\(", TK_LBRKT},    // (
+  {"\\)", TK_RBRKT},    // )
+
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
@@ -80,9 +91,24 @@ static bool make_token(char *e) {
          */
 
         switch (rules[i].token_type) {
+          case TK_NOTYPE:
+              break;
+          case TK_PLUS:
+              tokens[nr_token].type = TK_PLUS;
+              memset(tokens[nr_token].str, 0, 32);
+              break;
+          case TK_EQ:
+              break;
+          case TK_SUB:
+              tokens[nr_token].type = TK_SUB;
+              memset(tokens[nr_token].str, 0, 32);
+          case TK_MUX:
+              tokens[nr_token].type = TK_MUX;
+              memset(tokens[nr_token].str, 0, 32);
           default: TODO();
         }
-
+        
+        nr_token++;
         break;
       }
     }
