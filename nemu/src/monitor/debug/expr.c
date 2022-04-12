@@ -105,6 +105,15 @@ static bool make_token(char *e) {
           case TK_MUX:
               tokens[nr_token].type = TK_MUX;
               memset(tokens[nr_token].str, 0, 32);
+          case TK_DIV:
+              tokens[nr_token].type = TK_DIV;
+              memset(tokens[nr_token].str, 0, 32);
+          case TK_LBRKT:
+              tokens[nr_token].type = TK_LBRKT;
+              memset(tokens[nr_token].str, 0, 32);
+          case TK_RBRKT:
+              tokens[nr_token].type = TK_RBRKT;
+              memset(tokens[nr_token].str, 0, 32);
           default: TODO();
         }
         
