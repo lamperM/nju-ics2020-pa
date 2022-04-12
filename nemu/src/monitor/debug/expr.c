@@ -15,6 +15,7 @@ enum {
   TK_DIV,
   TK_LBRKT,
   TK_RBRKT,
+  TK_NUM,
 };
 
 static struct rule {
@@ -27,13 +28,14 @@ static struct rule {
    */
 
   {" +", TK_NOTYPE},    // spaces
-  {"\\+", TK_PLUS},         // plus
+  {"\\+", TK_PLUS},     // plus
   {"==", TK_EQ},        // equal
-  {"\\-", TK_SUB},         // sub
-  {"\\*", TK_MUX},         // mux
-  {"\\/", TK_DIV},         // div
+  {"\\-", TK_SUB},      // sub
+  {"\\*", TK_MUX},      // mux
+  {"\\/", TK_DIV},      // div
   {"\\(", TK_LBRKT},    // (
   {"\\)", TK_RBRKT},    // )
+  {"[0-9]+", TK_NUM},   // number
 
 };
 
@@ -90,30 +92,38 @@ static bool make_token(char *e) {
          * of tokens, some extra actions should be performed.
          */
 
+        memset(tokens[nr_token].str, 0, 32);
         switch (rules[i].token_type) {
           case TK_NOTYPE:
               break;
           case TK_PLUS:
               tokens[nr_token].type = TK_PLUS;
-              memset(tokens[nr_token].str, 0, 32);
               break;
           case TK_EQ:
               break;
           case TK_SUB:
               tokens[nr_token].type = TK_SUB;
-              memset(tokens[nr_token].str, 0, 32);
+              break;
           case TK_MUX:
               tokens[nr_token].type = TK_MUX;
-              memset(tokens[nr_token].str, 0, 32);
+              break;
           case TK_DIV:
               tokens[nr_token].type = TK_DIV;
-              memset(tokens[nr_token].str, 0, 32);
+              break;
           case TK_LBRKT:
               tokens[nr_token].type = TK_LBRKT;
-              memset(tokens[nr_token].str, 0, 32);
+              break;
           case TK_RBRKT:
               tokens[nr_token].type = TK_RBRKT;
-              memset(tokens[nr_token].str, 0, 32);
+              break;
+          case TK_NUM:
+              tokens[nr_token].type = TK_NUM;
+              if (substr_len >= 32) {
+                  printf("number is longer than 32\n");
+                  return false;
+              }
+              memcpy(tokens[nr_token].str, (const char *)substr_start, substr_len);
+              break;
           default: TODO();
         }
         
