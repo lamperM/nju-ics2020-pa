@@ -16,8 +16,11 @@ enum {
   TK_DIV,
   TK_LBRKT,
   TK_RBRKT,
-  TK_NUM,
   TK_OP_END,
+
+  TK_NUM,
+
+  TK_INVAILD, // poison value
 };
 
 static struct rule {
@@ -44,8 +47,7 @@ static struct rule {
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
 //#define char_is_num(c)        (c >= '0' && c <= '9')
-#define op_is_vaild(op)       (op == '(' || op == ')' || op == '+' || \
-                               op == '-' || op == '*' || op == '/')
+#define token_is_vaild_op(type) (type > TK_OP_START && type < TK_OP_END)
 //#define token_is_op(type)     (type > TK_OP_START && type < TK_OP_END)
 static regex_t re[NR_REGEX] = {};
 
@@ -177,11 +179,11 @@ bool check_parentheses(char *p, char *q) {
     else return false;
 }
 
-bool priority_is_higher(char op1, char op2) {
-    assert(op1 == '+' || op1 == '-' || op1 == '*' || op1 == '/');
-    assert(op2 == '+' || op2 == '-' || op2 == '*' || op2 == '/');
+bool priority_is_higher(int op1, int op2) {
+    assert(op1 == TK_PLUS || op1 == TK_SUB || op1 == TK_MUX || op1 == TK_DIV);
+    assert(op2 == TK_PLUS || op2 == TK_SUB || op2 == TK_MUX || op2 == TK_DIV);
 
-    if ((op1 == '*' || op1 == '/') && (op2 == '+' || op2 == '-')) 
+    if ((op1 == TK_MUX || op1 == TK_DIV) && (op2 == TK_PLUS || op2 == TK_SUB)) 
         return true;
     else 
         return false;
@@ -201,30 +203,31 @@ word_t eval(char *p, char *q) {
         int len = q - p + 1;
         char sub_expr[len+1];
         int main_op_pos = 0;
-        char main_op = 0x78; // poison value
+        int main_op = TK_INVAILD; // poison value
         word_t val1, val2;
 
         strncpy(sub_expr,(const char *)p, len);
         sub_expr[len] = '\0';
 
-      for (int i = len - 1, need_brkt = 0; i >= 0; i--) {               
-          char op = *(p + i);                                        
-          if (!op_is_vaild(op)) continue;
-          if (')' == op) {                                              
-              need_brkt++;                                              
-              continue;                                                 
-          }                                                             
-          if (need_brkt != 0) {                                         
-              if ('(' == op)  need_brkt--;                              
-              continue;                                                 
-          } else {                                                      
-              /* may be main op, consider priority */                   
-              if ( 0x78 == main_op || priority_is_higher(main_op, op)) {
-                  main_op = op;                                         
-                  main_op_pos = i;                                      
-              }                  
-          } // end of else                                              
-      } // end of for
+        for (int i = nr_token -1, need_brkt = 0; i >=0; i++) {
+            int type = tokens[i].type;
+            if (!token_is_vaild_op(type)) continue;
+            if (TK_RBRKT == type) {
+                need_brkt++;
+                continue;
+            }
+            if (need_brkt !=0) {
+                if (TK_LBRKT == type) need_brkt--;
+                continue;
+            } else {
+                /* may be main op, consider priority */
+                if (TK_INVAILD == main_op || priority_is_higher(main_op, type)) {
+                    main_op = type;
+                    main_op_pos = i;
+                }
+            } // end of else
+        } // end of for
+
           
     printf("main op = %c, position = %d\n", main_op, main_op_pos);
     val1 = eval(p, p + main_op_pos - 1);
