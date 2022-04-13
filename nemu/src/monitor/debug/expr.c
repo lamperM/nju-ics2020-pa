@@ -207,7 +207,7 @@ word_t eval(int p, int q) {
         word_t val1, val2;
 
 
-        for (int i = nr_token -1, need_brkt = 0; i >=0; i--) {
+        for (int i = q, need_brkt = 0; i >= p; i--) {
             int type = tokens[i].type;
             if (!token_is_vaild_op(type)) continue;
             if (TK_RBRKT == type) {
