@@ -155,7 +155,7 @@ static bool make_token(char *e) {
  * and check if all brackets is vailed.
  */
 bool check_parentheses(int p, int q) {
-    int expr_len = 0;
+    int expr_len = q - p + 1;
     unsigned int top = 0; // top of stack
     
     assert(expr_len  >= 3);
