@@ -228,8 +228,8 @@ word_t eval(int p, int q) {
 
           
     printf("main op = %d, position = %d\n", main_op, main_op_pos);
-    val1 = eval(p, p + main_op_pos - 1);
-    val2 = eval(p + main_op_pos + 1, q);
+    val1 = eval(p, main_op_pos - 1);
+    val2 = eval(main_op_pos + 1, q);
     
     switch(main_op) {
         case TK_PLUS: return val1 + val2;
