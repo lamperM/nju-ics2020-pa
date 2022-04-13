@@ -236,7 +236,7 @@ word_t eval(int p, int q) {
         case TK_SUB: return val1 - val2;
         case TK_MUX: return val1 * val2;
         case TK_DIV:
-            assert(val2 == 0);
+            assert(val2 != 0);
             return val1 / val2;
         default:
             assert(0);
