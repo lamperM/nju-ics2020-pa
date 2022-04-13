@@ -50,6 +50,21 @@ static int cmd_si(char *args) {
 
     return 0;
 }
+
+static int cmd_p(char *args) {
+    bool success = false;
+    word_t val = 0;
+    
+    val = expr(args, &success);
+    if (false == success) {
+        printf("error occurs\n");
+        return -1;
+    }
+
+    printf("val = %d\n", val);
+    return 0;
+}
+    
 static int cmd_x(char *args);
 static int cmd_help(char *args);
 static int cmd_info(char *args);
@@ -65,6 +80,7 @@ static struct {
   { "si", "single step execution", cmd_si },
   { "info", "Display information about following arguements", cmd_info },
   { "x", "Display memory", cmd_x },
+  { "p", "Calculate expression", cmd_p },
   /* TODO: Add more commands */
 
 };
