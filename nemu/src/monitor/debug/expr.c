@@ -4,7 +4,7 @@
  * Type 'man regex' for more information about POSIX regex functions.
  */
 #include <regex.h>
-
+#include <stdlib.h>
 enum {
   TK_NOTYPE = 256, TK_EQ,
 
@@ -154,22 +154,24 @@ static bool make_token(char *e) {
  * Check if the expression is surrounded by a matched pair of bracket
  * and check if all brackets is vailed.
  */
-bool check_parentheses(char *p, char *q) {
-    unsigned int expr_len = q - p + 1;
-   // unsigned int stack[expr_len];   // stack
+bool check_parentheses(int p, int q) {
+    int expr_len = 0;
     unsigned int top = 0; // top of stack
     
     assert(expr_len  >= 3);
+    
+    if (tokens[p].type !=TK_LBRKT && tokens[q].type != TK_RBRKT)  
+        return false; // no surrounded
 
-    if (*p !='(' && *q != ')')  return false; // no surrounded
     p++; q--;
     expr_len -= 2;
 
     for (int i = 0; i < expr_len; i++) {
-        if (p[i] == '(') {
+        int type = tokens[i].type;
+        if (TK_LBRKT == type) {
             // stack[top++] = i;
             top ++;
-        } else if (p[i] == ')') {
+        } else if (TK_RBRKT == type) {
             if (top == 0) return false; // invailed brackets
             top--;
         } else { }
@@ -190,24 +192,20 @@ bool priority_is_higher(int op1, int op2) {
 }
 
     
-word_t eval(char *p, char *q) {
+word_t eval(int p, int q) {
     if (p > q) {
         printf("bad expression\n");
         assert(0);
     } else if (p == q) {
-        return (word_t)(*p - '0');
+        return (word_t)strtol(tokens[p].str, NULL, 10); // only base-10 supported
     } else if (check_parentheses(p, q) == true) {
         return eval(p + 1, q - 1);
     } else {
         /* find 主运算符 */
-        int len = q - p + 1;
-        char sub_expr[len+1];
         int main_op_pos = 0;
         int main_op = TK_INVAILD; // poison value
         word_t val1, val2;
 
-        strncpy(sub_expr,(const char *)p, len);
-        sub_expr[len] = '\0';
 
         for (int i = nr_token -1, need_brkt = 0; i >=0; i++) {
             int type = tokens[i].type;
@@ -256,12 +254,11 @@ word_t expr(char *e, bool *success) {
     }
 
     /* TODO: Insert codes to evaluate the expression. */
-    char *p, *q;
-    size_t expr_len = strlen(e);
+    int p, q;
     word_t res;
 
-    p = e;
-    q = e + (expr_len - 1);
+    p = 0;
+    q = nr_token - 1;
     
     res = eval(p, q);
     *success = true;
