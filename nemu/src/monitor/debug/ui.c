@@ -54,11 +54,15 @@ static int cmd_si(char *args) {
 static int cmd_p(char *args) {
     bool success = false;
     word_t val = 0;
-    
+    if (args == NULL) {
+       printf("bad argument\n");
+       return 0;
+    }
+
     val = expr(args, &success);
     if (false == success) {
-        printf("error occurs\n");
-        return -1;
+        printf("error occurs when calulating expression\n");
+        return 0;
     }
 
     printf("val = %d\n", val);
