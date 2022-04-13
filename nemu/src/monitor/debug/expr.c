@@ -194,7 +194,7 @@ bool priority_is_higher(int op1, int op2) {
     
 word_t eval(int p, int q) {
     if (p > q) {
-        printf("bad expression\n");
+        printf("p = %d, q = %d(p > q), error\n", p, q);
         assert(0);
     } else if (p == q) {
         return (word_t)strtol(tokens[p].str, NULL, 10); // only base-10 supported
