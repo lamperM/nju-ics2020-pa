@@ -43,8 +43,10 @@ static struct rule {
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
-#define char_is_num(c)        (c >= '0' && c <= '9')
-#define token_is_op(type)     (type > TK_OP_START && type < TK_OP_END)
+//#define char_is_num(c)        (c >= '0' && c <= '9')
+#define op_is_vaild(op)       (op == '(' || op == ')' || op == '+' || \
+                               op == '-' || op == '*' || op == '/')
+//#define token_is_op(type)     (type > TK_OP_START && type < TK_OP_END)
 static regex_t re[NR_REGEX] = {};
 
 /* Rules are used for many times.
@@ -207,7 +209,7 @@ word_t eval(char *p, char *q) {
 
       for (int i = len - 1, need_brkt = 0; i >= 0; i--) {               
           char op = *(p + i);                                        
-          if (char_is_num(op)) continue;                                
+          if (!op_is_vaild(op)) continue;
           if (')' == op) {                                              
               need_brkt++;                                              
               continue;                                                 
