@@ -166,7 +166,7 @@ bool check_parentheses(int p, int q) {
     p++; q--;
     expr_len -= 2;
 
-    for (int i = 0; i < expr_len; i++) {
+    for (int i = p; i < q; i++) {
         int type = tokens[i].type;
         if (TK_LBRKT == type) {
             // stack[top++] = i;
