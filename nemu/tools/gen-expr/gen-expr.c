@@ -5,6 +5,7 @@
 #include <assert.h>
 #include <string.h>
 
+#include <limit.h>
 // this should be enough
 static char buf[65536] = {};
 static char code_buf[65536 + 128] = {}; // a little larger than `buf`
@@ -16,8 +17,34 @@ static char *code_format =
 "  return 0; "
 "}";
 
+int buf_index = 0;
+
+/*
+ * Generate random number less than n
+ */
+/*
+uint32_t choose(uint32_t n) {
+    uint32_t rand_num = rand() % n;
+
+    return rand_num;
+} */
+
+#define choose(n) (uint32_t) (rand() % n)
+
+static inline void gen(char c) {
+    buf[buf_index++] = c;
+}
+static inline void gen_num(void ) {
+  uint32_t ran_num = choose(UINT_MAX);  
+}
+
 static inline void gen_rand_expr() {
-  buf[0] = '\0';
+  switch(choose(3)) {
+      case 0: gen_num(); break;
+      case 1: gen('('); gen_rand_expr(); gen(')'); break;
+      default: gen_rand_expr(); gen_rand_op(); gen_rand_expr(); break;
+  }
+
 }
 
 int main(int argc, char *argv[]) {
