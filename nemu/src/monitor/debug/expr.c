@@ -227,15 +227,15 @@ word_t eval(int p, int q) {
         } // end of for
 
           
-    printf("main op = %c, position = %d\n", main_op, main_op_pos);
+    printf("main op = %d, position = %d\n", main_op, main_op_pos);
     val1 = eval(p, p + main_op_pos - 1);
     val2 = eval(p + main_op_pos + 1, q);
     
     switch(main_op) {
-        case '+': return val1 + val2;
-        case '-': return val1 - val2;
-        case '*': return val1 * val2;
-        case '/':
+        case TK_PLUS: return val1 + val2;
+        case TK_SUB: return val1 - val2;
+        case TK_MUX: return val1 * val2;
+        case TK_DIV:
             assert(val2 == 0);
             return val1 / val2;
         default:
