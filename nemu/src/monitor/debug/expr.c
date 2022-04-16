@@ -293,7 +293,6 @@ bool test_expr(void) {
     size_t len = 0;
     ssize_t read;
     
-    bool passed = true;
 
     if (NULL == temp) {
         Log("Get env variable error\n");
@@ -332,15 +331,13 @@ bool test_expr(void) {
             printf("Calculate error!\n");
             printf("expression: %s\n", expr_s);
             printf("result: %u, expr return:%u\n", rst, cal_rst);
-            passed = false;
-            break;
+            return false;
         }
         free(expr_s);
         free(rst_s);
-        printf("expression calculate test passed!\n"); 
-        return passed;
     }
+        printf("expression calculate test passed!\n"); 
+        return true;
 
-    return true;
 }
 
