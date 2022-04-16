@@ -278,10 +278,11 @@ bool split_expr_rst(char *buf, char **expr, char **result) {
     if (NULL == p)  success = false;
     else {
         *result = strdup(p);
-        p = strtok(NULL, "\0");
+        p = strtok(NULL, "\n");
         if (NULL == p)  success = false;
         else {
             *expr = strdup(p);
+            
         }
     }
 
