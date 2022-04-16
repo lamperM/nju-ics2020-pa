@@ -280,7 +280,7 @@ bool test_expr(void) {
         Log("Get env variable error\n");
         exit(EXIT_FAILURE);
     }
-    sprintf(input_path, "%s/tools/gen-expr/input/", temp);
+    sprintf(input_path, "%s/tools/gen-expr/input", temp);
     fd = fopen(input_path, "r" );
     if (NULL == fd) {
         printf("intput_path: %s\n", input_path);
