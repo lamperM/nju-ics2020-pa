@@ -337,7 +337,7 @@ bool test_expr(void) {
         }
         free(expr_s);
         free(rst_s);
-        
+        printf("expression calculate test passed!\n"); 
         return passed;
     }
 
