@@ -305,8 +305,8 @@ bool test_expr(void) {
         expr_s = (char *)malloc(read);
         rst_s = (char *)malloc(read);
 
-        printf("line %zu:\n", read);
-        printf("%s", buf);
+//        printf("line %zu:\n", read);
+//        printf("%s", buf);
         
         if (split_expr_rst(buf, &expr_s, &rst_s) == false) {
             Log("split expression error\n");
