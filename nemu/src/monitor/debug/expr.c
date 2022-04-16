@@ -51,6 +51,7 @@ static struct rule {
 //#define token_is_op(type)     (type > TK_OP_START && type < TK_OP_END)
 static regex_t re[NR_REGEX] = {};
 
+bool test_expr(void);
 /* Rules are used for many times.
  * Therefore we compile them only once before any usage.
  */
@@ -66,6 +67,8 @@ void init_regex() {
       panic("regex compilation failed: %s\n%s", error_msg, rules[i].regex);
     }
   }
+
+  test_expr();
 }
 
 typedef struct token {
@@ -264,3 +267,27 @@ word_t expr(char *e, bool *success) {
     *success = true;
     return res;
 }
+
+bool test_expr(void) {
+    FILE *fd;
+    char *buf = NULL;
+    size_t len = 0;
+    ssize_t read;
+
+    fd = fopen("$NEMU_HOME/tools/gen-expr/input","w" );
+    if (NULL == fd) {
+        exit(EXIT_FAILURE);
+    }
+
+    while ((read = getline(&buf, &len, fd)) != -1) {
+        printf("line %zu:\n", read);
+        printf("%s", buf);
+        printf("len: %ld\n", len);
+    }
+
+    return true;
+}
+
+
+    
+
