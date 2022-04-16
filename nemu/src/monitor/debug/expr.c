@@ -216,18 +216,18 @@ word_t eval(int p, int q) {
             if (TK_RBRKT == type) {
                 need_brkt++;
                 continue;
-            }
+             }
             if (need_brkt !=0) {
                 if (TK_LBRKT == type) need_brkt--;
                 continue;
             } else {
                 /* may be main op, consider priority */
-                if (TK_INVAILD == main_op || priority_is_higher(main_op, type)) {
+                 if (TK_INVAILD == main_op || priority_is_higher(main_op, type)) {
                     main_op = type;
                     main_op_pos = i;
                 }
-            } // end of else
-        } // end of for
+             } // end of else
+         } // end of for
 
           
     printf("main op = %d, position = %d\n", main_op, main_op_pos);
@@ -244,17 +244,17 @@ word_t eval(int p, int q) {
         default:
             assert(0);
             break;
-    } 
-    } // end of else
+    }  
+     } // end of else
 
 
-} 
+}  
 
-word_t expr(char *e, bool *success) {
+word_t expr(char *e, bool *success) {  
     if (!make_token(e)) {
         *success = false;
         return 0;
-    }
+    } 
 
     /* TODO: Insert codes to evaluate the expression. */
     int p, q;
@@ -270,9 +270,6 @@ word_t expr(char *e, bool *success) {
 bool split_expr_rst(char *buf, char **expr, char **result) {
     bool success = true;
     char *p = NULL;
-//    char *temp = (char *)malloc(strlen(buf));
-//
-//    strcpy(temp, buf);
 
     p = strtok(buf, " ");
     if (NULL == p)  success = false;
@@ -282,7 +279,6 @@ bool split_expr_rst(char *buf, char **expr, char **result) {
         if (NULL == p)  success = false;
         else {
             *expr = strdup(p);
-            
         }
     }
 
@@ -296,6 +292,8 @@ bool test_expr(void) {
     char *buf = NULL;
     size_t len = 0;
     ssize_t read;
+    
+    bool passed = true;
 
     if (NULL == temp) {
         Log("Get env variable error\n");
@@ -310,6 +308,9 @@ bool test_expr(void) {
 
     while ((read = getline(&buf, &len, fd)) != -1) {
         char *expr_s, *rst_s;
+        uint32_t rst = 0;
+        bool success = true; // expr execute flag
+        uint32_t cal_rst = 0; // expr calculate result
 
         expr_s = (char *)malloc(read);
         rst_s = (char *)malloc(read);
@@ -320,12 +321,24 @@ bool test_expr(void) {
         if (split_expr_rst(buf, &expr_s, &rst_s) == false) {
             Log("split expression error\n");
         }
-
-        printf(" expression: %s", expr_s);
-        printf(" result: %s\n", rst_s);
-
+        
+        rst = (uint32_t)strtol(rst_s, NULL, 10);
+        cal_rst = expr(expr_s, &success);
+        if (true != success) {
+            Log("Execute expr() error\n");
+            exit(EXIT_FAILURE);
+        }
+        if (cal_rst != rst) {
+            printf("Calculate error!\n");
+            printf("expression: %s\n", expr_s);
+            printf("result: %u, expr return:%u\n", rst, cal_rst);
+            passed = false;
+            break;
+        }
         free(expr_s);
         free(rst_s);
+        
+        return passed;
     }
 
     return true;
