@@ -283,6 +283,7 @@ bool test_expr(void) {
     sprintf(input_path, "%s/tools/gen-expr/input/", temp);
     fd = fopen(input_path, "r" );
     if (NULL == fd) {
+        printf("intput_path: %s\n", input_path);
         printf("open test input error\n");
         exit(EXIT_FAILURE);
     }
