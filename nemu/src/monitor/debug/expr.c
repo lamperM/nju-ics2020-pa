@@ -302,8 +302,8 @@ bool test_expr(void) {
     while ((read = getline(&buf, &len, fd)) != -1) {
         char *expr_s, *rst_s;
 
-        expr_s = (char *)malloc(read);
-        rst_s = (char *)malloc(read);
+        expr_s = (char *)malloc(256);
+        rst_s = (char *)malloc(256);
 
 //        printf("line %zu:\n", read);
 //        printf("%s", buf);
