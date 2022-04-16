@@ -274,8 +274,9 @@ bool test_expr(void) {
     size_t len = 0;
     ssize_t read;
 
-    fd = fopen("$NEMU_HOME/tools/gen-expr/input","w" );
+    fd = fopen("$NEMU_HOME/tools/gen-expr/input","r" );
     if (NULL == fd) {
+        printf("open test input error\n");
         exit(EXIT_FAILURE);
     }
 
@@ -287,7 +288,4 @@ bool test_expr(void) {
 
     return true;
 }
-
-
-    
 
