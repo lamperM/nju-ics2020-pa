@@ -270,11 +270,18 @@ word_t expr(char *e, bool *success) {
 
 bool test_expr(void) {
     FILE *fd;
+    char input_path[200];
+    const char *temp = getenv("NEMU_HOME");
     char *buf = NULL;
     size_t len = 0;
     ssize_t read;
 
-    fd = fopen("$NEMU_HOME/tools/gen-expr/input","r" );
+    if (NULL == temp) {
+        Log("Get env variable error\n");
+        exit(EXIT_FAILURE);
+    }
+    sprintf(input_path, "%s/tools/gen-expr/input/", temp);
+    fd = fopen(input_path, "r" );
     if (NULL == fd) {
         printf("open test input error\n");
         exit(EXIT_FAILURE);
