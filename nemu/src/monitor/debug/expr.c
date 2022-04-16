@@ -274,7 +274,8 @@ bool split_expr_rst(char *buf, char **expr, char **result) {
 //    strcpy(temp, buf);
 
     *result = strtok(buf, " ");
-    *expr = strtok(NULL, " ");
+    // *expr = strtok(NULL, " ");
+    *expr = buf;
 
 //    free(temp);
     return success;
