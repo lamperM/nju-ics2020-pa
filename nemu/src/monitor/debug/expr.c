@@ -285,7 +285,6 @@ bool split_expr_rst(char *buf, char **expr, char **result) {
         }
     }
 
-//    free(temp);
     return success;
 }
 
@@ -311,8 +310,8 @@ bool test_expr(void) {
     while ((read = getline(&buf, &len, fd)) != -1) {
         char *expr_s, *rst_s;
 
-        expr_s = (char *)malloc(256);
-        rst_s = (char *)malloc(256);
+        expr_s = (char *)malloc(read);
+        rst_s = (char *)malloc(read);
 
 //        printf("line %zu:\n", read);
 //        printf("%s", buf);
@@ -321,7 +320,7 @@ bool test_expr(void) {
             Log("split expression error\n");
         }
 
-        printf(" expression: %s\n", expr_s);
+        printf(" expression: %s", expr_s);
         printf(" result: %s\n", rst_s);
 
         free(expr_s);
