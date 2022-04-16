@@ -269,13 +269,21 @@ word_t expr(char *e, bool *success) {
 }
 bool split_expr_rst(char *buf, char **expr, char **result) {
     bool success = true;
+    char *p = NULL;
 //    char *temp = (char *)malloc(strlen(buf));
 //
 //    strcpy(temp, buf);
 
-    *result = strtok(buf, " ");
-    // *expr = strtok(NULL, " ");
-    *expr = buf;
+    p = strtok(buf, " ");
+    if (NULL == p)  success = false;
+    else {
+        *result = strdup(p);
+        p = strtok(NULL, "\0");
+        if (NULL == p)  success = false;
+        else {
+            *expr = strdup(p);
+        }
+    }
 
 //    free(temp);
     return success;
