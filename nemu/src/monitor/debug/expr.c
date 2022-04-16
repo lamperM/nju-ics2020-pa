@@ -267,6 +267,18 @@ word_t expr(char *e, bool *success) {
     *success = true;
     return res;
 }
+bool split_expr_rst(char *buf, char **expr, char **result) {
+    bool success = true;
+//    char *temp = (char *)malloc(strlen(buf));
+//
+//    strcpy(temp, buf);
+
+    *result = strtok(buf, " ");
+    *expr = strtok(NULL, " ");
+
+//    free(temp);
+    return success;
+}
 
 bool test_expr(void) {
     FILE *fd;
@@ -283,15 +295,28 @@ bool test_expr(void) {
     sprintf(input_path, "%s/tools/gen-expr/input", temp);
     fd = fopen(input_path, "r" );
     if (NULL == fd) {
-        printf("intput_path: %s\n", input_path);
         printf("open test input error\n");
         exit(EXIT_FAILURE);
     }
 
     while ((read = getline(&buf, &len, fd)) != -1) {
+        char *expr_s, *rst_s;
+
+        expr_s = (char *)malloc(read);
+        rst_s = (char *)malloc(read);
+
         printf("line %zu:\n", read);
         printf("%s", buf);
-        printf("len: %ld\n", len);
+        
+        if (split_expr_rst(buf, &expr_s, &rst_s) == false) {
+            Log("split expression error\n");
+        }
+
+        printf(" expression: %s\n", expr_s);
+        printf(" result: %s\n", rst_s);
+
+        free(expr_s);
+        free(rst_s);
     }
 
     return true;
