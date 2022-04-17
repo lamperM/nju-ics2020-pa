@@ -50,7 +50,7 @@ static inline bool gen_num(void ) {
     char ran_num_str[12];
     int len = 0;
    
-    sprintf(ran_num_str, "%d", ran_num); 
+    sprintf(ran_num_str, "%dU", ran_num); // 'U' make sure always unsigned calculation
     len = strlen(ran_num_str);
     if (buf_index + len >= MAX_INDEX -1 ) 
         return false;
