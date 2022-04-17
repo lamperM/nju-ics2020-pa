@@ -269,7 +269,8 @@ word_t expr(char *e, bool *success) {
     *success = true;
     return res;
 }
-bool split_expr_rst(char *buf, char **expr, char **result) {
+
+static bool split_expr_rst(char *buf, char **expr, char **result) {
     bool success = true;
     char *p = NULL;
 
@@ -280,7 +281,7 @@ bool split_expr_rst(char *buf, char **expr, char **result) {
         p = strtok(NULL, "\n");
         if (NULL == p)  success = false;
         else {
-            *expr = strdup(p);
+            *expr = strdup(p); // Will add NULL terminator
         }
     }
 
@@ -321,7 +322,6 @@ bool test_expr(void) {
 
 //        printf("line %zu:\n", read);
 //        printf("%s", buf);
-        
         if (split_expr_rst(buf, &expr_s, &rst_s) == false) {
             printf("Split expression error\n");
             free(expr_s); free(rst_s);
@@ -343,7 +343,8 @@ bool test_expr(void) {
             goto failed;
         }
         free(expr_s); free(rst_s);
-    }
+    } // end of while
+
         printf("Expression calculate test passed!\n"); 
         free(buf);
         pclose(fd);
