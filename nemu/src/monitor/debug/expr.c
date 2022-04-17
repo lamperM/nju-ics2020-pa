@@ -6,19 +6,25 @@
 #include <regex.h>
 #include <stdlib.h>
 enum {
-  TK_NOTYPE = 256, TK_EQ,
+  TK_NOTYPE = 256,
 
   /* TODO: Add more token types */
-  TK_OP_START,
+  TK_OP_START, // operator token start...
   TK_PLUS,
   TK_SUB,
   TK_MUX,
   TK_DIV,
   TK_LBRKT,
   TK_RBRKT,
-  TK_OP_END,
+  TK_EQ,      // ==
+  TK_NEQ,     // !=
+  TK_AND,     // &&
+  TK_DEREF,   // *
+  TK_REG,     // $
+  TK_OP_END,  // operator token end...
 
-  TK_NUM,
+  TK_NUM,     // dec number
+  TK_HEX_NUM, // hex number
 
   TK_INVAILD, // poison value
 };
@@ -41,7 +47,9 @@ static struct rule {
   {"\\/", TK_DIV},      // div
   {"\\(", TK_LBRKT},    // (
   {"\\)", TK_RBRKT},    // )
-  {"[0-9]+U", TK_NUM},   // number
+  {"\\d+U", TK_NUM},   // dec number
+  {"0[xX]\\d+", TK_HEX_NUM}, 
+  // TODO
 
 };
 
