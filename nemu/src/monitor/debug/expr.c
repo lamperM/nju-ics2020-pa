@@ -287,59 +287,71 @@ bool split_expr_rst(char *buf, char **expr, char **result) {
     return success;
 }
 
+/*
+ * Test expr() with casefile 'nemu/tool/gen-expr/input'.
+ */
 bool test_expr(void) {
     FILE *fd;
     char input_path[200];
-    const char *temp = getenv("NEMU_HOME");
-    char *buf = NULL;
-    size_t len = 0;
-    ssize_t read;
+    const char *temp = getenv("NEMU_HOME"); // compatibility
+    char *buf = NULL;  // A line
+    size_t len = 0; 
+    ssize_t read_size;
     
 
     if (NULL == temp) {
-        Log("Get env variable error\n");
-        exit(EXIT_FAILURE);
+        printf("Get env variable error\n");
+        return false;
     }
     sprintf(input_path, "%s/tools/gen-expr/input", temp);
     fd = fopen(input_path, "r" );
     if (NULL == fd) {
-        printf("open test input error\n");
-        exit(EXIT_FAILURE);
+        printf("open case file:%s  error\n", input_path);
+        return false;
     }
 
-    while ((read = getline(&buf, &len, fd)) != -1) {
+    while ((read_size = getline(&buf, &len, fd)) != -1) {
         char *expr_s, *rst_s;
         uint32_t rst = 0;
-        bool success = true; // expr execute flag
-        uint32_t cal_rst = 0; // expr calculate result
+        bool success = true; // expr() execute flag
+        uint32_t cal_rst = 0; // expr() calculate result
 
-        expr_s = (char *)malloc(read);
-        rst_s = (char *)malloc(read);
+        expr_s = (char *)malloc(read_size);
+        rst_s = (char *)malloc(read_size);
 
 //        printf("line %zu:\n", read);
 //        printf("%s", buf);
         
         if (split_expr_rst(buf, &expr_s, &rst_s) == false) {
-            Log("split expression error\n");
+            printf("Split expression error\n");
+            free(expr_s); free(rst_s);
+            goto failed;
         }
         
         rst = (uint32_t)strtol(rst_s, NULL, 10);
         cal_rst = expr(expr_s, &success);
         if (true != success) {
-            Log("Execute expr() error\n");
-            exit(EXIT_FAILURE);
+            printf("Execute expr() error\n");
+            free(expr_s); free(rst_s);
+            goto failed;
         }
         if (cal_rst != rst) {
             printf("Calculate error!\n");
             printf("expression: %s\n", expr_s);
             printf("result: %u, expr return:%u\n", rst, cal_rst);
-            return false;
+            free(expr_s); free(rst_s);
+            goto failed;
         }
-        free(expr_s);
-        free(rst_s);
+        free(expr_s); free(rst_s);
     }
-        printf("expression calculate test passed!\n"); 
+        printf("Expression calculate test passed!\n"); 
+        free(buf);
+        pclose(fd);
         return true;
-
+failed:
+        printf("Expression calculate test failed! Let's fix bugs\n");
+        free(buf);
+        pclose(fd);
+        return false;
 }
 
