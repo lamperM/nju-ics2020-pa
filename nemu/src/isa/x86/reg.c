@@ -42,6 +42,7 @@ void reg_test() {
   assert(pc_sample == cpu.pc);
 }
 
+word_t isa_reg_str2val(const char *s, bool *success);
 void isa_reg_display() {
     printf("register display\n");
 
@@ -55,7 +56,10 @@ void isa_reg_display() {
     //}
     //printf("\n");
 
-    printf(" pc: 0x%08X\n",cpu.pc);
+    printf("pc: 0x%08X\n",cpu.pc);
+
+    bool success;
+    printf("pc: 0x%08x\n",isa_reg_str2val("pc", &success)); 
     
 }
 
