@@ -111,7 +111,7 @@ int main(int argc, char *argv[]) {
 //    srandom(time(NULL));
   for (i = 0; i < loop; i ++) {
     while(gen_rand_expr() == false) {
-        printf("false occurs\n");
+//        printf("false occurs\n");
         buf_index = 0;
         memset(buf, 0, 65535 * sizeof(char));
     }
