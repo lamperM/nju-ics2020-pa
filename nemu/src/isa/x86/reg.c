@@ -62,9 +62,9 @@ void isa_reg_display() {
     for (int i = 0; i < 8; i++) 
         printf("%s: 0x%08x\n", regsl[i], isa_reg_str2val(regsl[i], &success));
     for (int i = 0; i < 8; i++) 
-        printf("%s: 0x%08x\n", regsw[i], isa_reg_str2val(regsw[i], &success));
+        printf("%s: 0x%04x\n", regsw[i], isa_reg_str2val(regsw[i], &success));
     for (int i = 0; i < 4; i++) {
-        printf("%s: 0x%08x  %s: 0x%08x\n", regsb[i], isa_reg_str2val(regsb[i], &success), 
+        printf("%s: 0x%02x  %s: 0x%02x\n", regsb[i], isa_reg_str2val(regsb[i], &success), 
                                            regsb[i + 4], isa_reg_str2val(regsb[i + 4], &success));
     }
 
