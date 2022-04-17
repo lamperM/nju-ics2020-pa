@@ -68,7 +68,7 @@ void init_regex() {
     }
   }
 
-  //test_expr();
+  test_expr();
 }
 
 typedef struct token {
@@ -195,19 +195,19 @@ bool priority_is_higher(int op1, int op2) {
 }
 
     
-uint32_t eval(int p, int q) {
+word_t eval(int p, int q) {
     if (p > q) {
         printf("p = %d, q = %d(p > q), error\n", p, q);
         assert(0);
     } else if (p == q) {
-        return (uint32_t)strtol(tokens[p].str, NULL, 10); // only base-10 supported
+        return (word_t)strtol(tokens[p].str, NULL, 10); // only base-10 supported
     } else if (check_parentheses(p, q) == true) {
         return eval(p + 1, q - 1);
     } else {
         /* find 主运算符 */
         int main_op_pos = 0;
         int main_op = TK_INVAILD; // poison value
-        uint32_t val1, val2;
+        word_t val1, val2;
 
 
         for (int i = q, need_brkt = 0; i >= p; i--) {
@@ -250,7 +250,7 @@ uint32_t eval(int p, int q) {
 
 }  
 
-uint32_t expr(char *e, bool *success) {  
+word_t expr(char *e, bool *success) {  
     if (!make_token(e)) {
         *success = false;
         return 0;
@@ -258,7 +258,7 @@ uint32_t expr(char *e, bool *success) {
 
     /* TODO: Insert codes to evaluate the expression. */
     int p, q;
-    uint32_t res;
+    word_t res;
 
     p = 0;
     q = nr_token - 1;
