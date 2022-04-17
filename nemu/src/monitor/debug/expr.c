@@ -134,7 +134,8 @@ static bool make_token(char *e) {
                   printf("number is longer than 32\n");
                   assert(0);
               }
-              memcpy(tokens[nr_token].str, (const char *)substr_start, substr_len);
+              // 'substr_len - 1' is to delete 'U'
+              memcpy(tokens[nr_token].str, (const char *)substr_start, substr_len - 1); 
               break;
           default: TODO();
         }
