@@ -49,7 +49,6 @@ void isa_reg_display() {
     for (int i = 0; i < 8; i++) {
         printf("  %s: 0x%08X\n", regsl[i], cpu.gpr[i]._32);
     }
-    printf("\n");
 
     //`for (int i = 0; i < 8; i++) {
     //    printf("  %s: 0x%X\n", regsw[i], cpu.gpr[i]._16);
@@ -57,7 +56,8 @@ void isa_reg_display() {
     //printf("\n");
 
     printf("pc: 0x%08X\n",cpu.pc);
-
+    
+    /*
     bool success;
     for (int i = 0; i < 8; i++) 
         printf("%s: 0x%08x\n", regsl[i], isa_reg_str2val(regsl[i], &success));
@@ -69,6 +69,7 @@ void isa_reg_display() {
     }
 
     printf("pc: 0x%08x\n",isa_reg_str2val("pc", &success)); 
+    */
     
 }
 
