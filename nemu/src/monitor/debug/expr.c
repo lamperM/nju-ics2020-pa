@@ -41,7 +41,7 @@ static struct rule {
   {"\\/", TK_DIV},      // div
   {"\\(", TK_LBRKT},    // (
   {"\\)", TK_RBRKT},    // )
-  {"[0-9]+", TK_NUM},   // number
+  {"[0-9]+U", TK_NUM},   // number
 
 };
 
