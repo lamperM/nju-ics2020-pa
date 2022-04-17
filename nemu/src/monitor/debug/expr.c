@@ -93,8 +93,9 @@ static bool make_token(char *e) {
         char *substr_start = e + position;
         int substr_len = pmatch.rm_eo;
 
-        Log("match rules[%d] = \"%s\" at position %d with len %d: %.*s",
-            i, rules[i].regex, position, substr_len, substr_len, substr_start);
+        // 匹配已经测试ok
+//        Log("match rules[%d] = \"%s\" at position %d with len %d: %.*s",
+//            i, rules[i].regex, position, substr_len, substr_len, substr_start);
 
         position += substr_len;
 
