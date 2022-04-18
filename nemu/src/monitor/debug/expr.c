@@ -47,7 +47,7 @@ static struct rule {
   {"&&", TK_AND},       // and
   {"$", TK_DEREF},      // register name prefix
   /* operation token end */
-  {"[:digit:]+U", TK_NUM},   // dec number
+  {"\\p{Nd}+U", TK_NUM},   // dec number
   {"0[xX]\\d+", TK_HEX_NUM}, 
 
 };
