@@ -47,8 +47,8 @@ static struct rule {
   {"&&", TK_AND},       // and
   {"$", TK_DEREF},      // register name prefix
   /* operation token end */
-  {"[0-9]+U?", TK_NUM},   // dec number (also '[[:digit:]]+U' in POSIX)
-  {"0[xX][0-9]+", TK_HEX_NUM}, 
+  {"[0-9]+U?", TK_NUM},   // dec number (also '[[:digit:]]+U?' in POSIX)
+  {"0[xX][0-9]+U?", TK_HEX_NUM}, 
 
 };
 
@@ -124,7 +124,15 @@ static bool make_token(char *e) {
               tokens[nr_token].type = TK_SUB;
               break;
           case TK_MUX:
-              tokens[nr_token].type = TK_MUX;
+              /* '*' may be TK_MUX or TK_DEREF */
+              if (i == 0 ) tokens[nr_token].type = TK_DEREF;
+              else {
+                  int type = tokens[nr_token - 1].type;
+                  if (type == TK_RBRKT || type == TK_NUM || type == TK_HEX_NUM)
+                      tokens[nr_token].type = TK_MUX;
+                  else
+                      tokens[nr_token].type = TK_DEREF;
+              }
               break;
           case TK_DIV:
               tokens[nr_token].type = TK_DIV;
@@ -158,7 +166,6 @@ static bool make_token(char *e) {
                   memcpy(tokens[nr_token].str, (const char *)substr_start, substr_len - 1); 
               else 
                   memcpy(tokens[nr_token].str, (const char *)substr_start, substr_len); 
-
               break;
           default: TODO();
         }
