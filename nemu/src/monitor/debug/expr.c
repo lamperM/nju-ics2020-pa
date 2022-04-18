@@ -167,6 +167,9 @@ static bool make_token(char *e) {
               else 
                   memcpy(tokens[nr_token].str, (const char *)substr_start, substr_len); 
               break;
+          case TK_HEX_NUM:
+              printf("jhhh\n");
+              break;
           default: TODO();
         }
         
