@@ -154,7 +154,7 @@ static bool make_token(char *e) {
                   assert(0);
               }
               // 'substr_len - 1' is to delete 'U'
-              memcpy(tokens[nr_token].str, (const char *)substr_start, substr_len - 1); 
+              memcpy(tokens[nr_token].str, (const char *)substr_start, substr_len); 
               break;
           default: TODO();
         }
