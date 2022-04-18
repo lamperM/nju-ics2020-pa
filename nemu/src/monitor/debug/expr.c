@@ -168,7 +168,12 @@ static bool make_token(char *e) {
                   memcpy(tokens[nr_token].str, (const char *)substr_start, substr_len); 
               break;
           case TK_HEX_NUM:
-              printf("jhhh\n");
+              tokens[nr_token].type = TK_HEX_NUM;
+              if (substr_len >= 10) {
+                  printf("Hex number is longer than 0xFFFFFFFF \n");
+                  assert(0);
+              }
+              memcpy(tokens[nr_token].str, (const char *)substr_start, substr_len);
               break;
           default: TODO();
         }
@@ -234,6 +239,7 @@ word_t eval(int p, int q) {
         printf("p = %d, q = %d(p > q), error\n", p, q);
         assert(0);
     } else if (p == q) {
+        assert(tokens[p].type == TK_NUM);
         return (word_t)strtol(tokens[p].str, NULL, 10); // only base-10 supported
     } else if (check_parentheses(p, q) == true) {
         return eval(p + 1, q - 1);
