@@ -83,7 +83,8 @@ typedef struct token {
   char str[32];
 } Token;
 
-static Token tokens[65535] __attribute__((used)) = {};
+#define TOKENS_MAX_SIZE (65535 + 1)
+static Token tokens[TOKENS_MAX_SIZE] __attribute__((used)) = {};
 static int nr_token __attribute__((used))  = 0;
 
 static bool make_token(char *e) {
@@ -111,15 +112,13 @@ static bool make_token(char *e) {
          * of tokens, some extra actions should be performed.
          */
 
-        memset(tokens[nr_token].str, 0, 65535);
+        memset(tokens[nr_token].str, 0, TOKENS_MAX_SIZE);
         switch (rules[i].token_type) {
           case TK_NOTYPE:
               nr_token--;
               break;
           case TK_PLUS:
               tokens[nr_token].type = TK_PLUS;
-              break;
-          case TK_EQ:
               break;
           case TK_SUB:
               tokens[nr_token].type = TK_SUB;
@@ -135,6 +134,18 @@ static bool make_token(char *e) {
               break;
           case TK_RBRKT:
               tokens[nr_token].type = TK_RBRKT;
+              break;
+          case TK_EQ:
+              tokens[nr_token].type = TK_EQ;
+              break;
+          case TK_NEQ:
+              tokens[nr_token].type = TK_NEQ;
+              break;
+          case TK_AND:
+              tokens[nr_token].type = TK_AND;
+              break;
+          case TK_REG:
+              tokens[nr_token].type = TK_REG;
               break;
           case TK_NUM:
               tokens[nr_token].type = TK_NUM;
