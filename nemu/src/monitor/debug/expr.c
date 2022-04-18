@@ -111,7 +111,7 @@ static bool make_token(char *e) {
          * of tokens, some extra actions should be performed.
          */
 
-        memset(tokens[nr_token].str, 0, 65535);
+        memset(tokens[nr_token].str, 0, 32);
         switch (rules[i].token_type) {
           case TK_NOTYPE:
               nr_token--;
