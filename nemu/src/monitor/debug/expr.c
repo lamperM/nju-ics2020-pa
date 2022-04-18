@@ -10,12 +10,8 @@ enum {
 
   /* TODO: Add more token types */
   TK_OP_START, // operator token start...
-  TK_PLUS,
-  TK_SUB,
-  TK_MUX,
-  TK_DIV,
-  TK_LBRKT,
-  TK_RBRKT,
+  TK_PLUS, TK_SUB, TK_MUX, TK_DIV,
+  TK_LBRKT, TK_RBRKT,
   TK_EQ,      // ==
   TK_NEQ,     // !=
   TK_AND,     // &&
@@ -39,17 +35,20 @@ static struct rule {
    */
     
   {" +", TK_NOTYPE},    // spaces
-  {"==", TK_EQ},        // equal
-  /* operation token */
+  /* operation token start */
   {"\\+", TK_PLUS},     // plus
   {"\\-", TK_SUB},      // sub
-  {"\\*", TK_MUX},      // mux
+  {"\\*", TK_MUX},      // mux or dereference
   {"\\/", TK_DIV},      // div
   {"\\(", TK_LBRKT},    // (
   {"\\)", TK_RBRKT},    // )
+  {"==", TK_EQ},        // equal
+  {"!=", TK_NEQ},       // not equal
+  {"&&", TK_AND},       // and
+  {"$", TK_DEREF},      // register name prefix
+  /* operation token end */
   {"\\d+U", TK_NUM},   // dec number
   {"0[xX]\\d+", TK_HEX_NUM}, 
-  // TODO
 
 };
 
@@ -112,7 +111,7 @@ static bool make_token(char *e) {
          * of tokens, some extra actions should be performed.
          */
 
-        memset(tokens[nr_token].str, 0, 32);
+        memset(tokens[nr_token].str, 0, 65535);
         switch (rules[i].token_type) {
           case TK_NOTYPE:
               nr_token--;
