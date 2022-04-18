@@ -47,7 +47,7 @@ static struct rule {
   {"&&", TK_AND},       // and
   {"$", TK_DEREF},      // register name prefix
   /* operation token end */
-  {"[0-9]+", TK_NUM},   // dec number (also '[[:digit:]]+U' in POSIX)
+  {"[0-9]+U?", TK_NUM},   // dec number (also '[[:digit:]]+U' in POSIX)
   {"0[xX][0-9]+", TK_HEX_NUM}, 
 
 };
@@ -75,7 +75,7 @@ void init_regex() {
     }
   }
 
-  //test_expr();
+  test_expr();
 }
 
 typedef struct token {
@@ -154,7 +154,7 @@ static bool make_token(char *e) {
                   assert(0);
               }
               // 'substr_len - 1' is to delete 'U'
-              memcpy(tokens[nr_token].str, (const char *)substr_start, substr_len); 
+              memcpy(tokens[nr_token].str, (const char *)substr_start, substr_len - 1); 
               break;
           default: TODO();
         }
