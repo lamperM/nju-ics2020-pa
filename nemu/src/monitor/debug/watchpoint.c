@@ -37,6 +37,7 @@ WP* new_wp(void) {
 void free(WP *wp) {
     assert(wp != NULL && head != NULL);
     WP *pre = head;
+    printf("Go in free()\n");
 
     while(pre->next != wp && NULL != pre->next) 
         pre = pre->next;
