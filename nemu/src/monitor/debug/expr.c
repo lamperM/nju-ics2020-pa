@@ -239,8 +239,8 @@ word_t eval(int p, int q) {
         printf("p = %d, q = %d(p > q), error\n", p, q);
         assert(0);
     } else if (p == q) {
-        assert(tokens[p].type == TK_NUM);
-        return (word_t)strtol(tokens[p].str, NULL, 10); // only base-10 supported
+        assert(tokens[p].type == TK_NUM);  // only base-10 supported
+        return (word_t)strtol(tokens[p].str, NULL, 10); 
     } else if (check_parentheses(p, q) == true) {
         return eval(p + 1, q - 1);
     } else {
@@ -248,7 +248,6 @@ word_t eval(int p, int q) {
         int main_op_pos = 0;
         int main_op = TK_INVAILD; // poison value
         word_t val1, val2;
-
 
         for (int i = q, need_brkt = 0; i >= p; i--) {
             int type = tokens[i].type;
