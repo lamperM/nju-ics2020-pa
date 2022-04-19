@@ -240,7 +240,7 @@ bool priority_is_higher(int op1, int op2) {
         return false;
 }
 
-    
+extern void* guest_to_host(paddr_t addr);
 word_t eval(int p, int q) {
     if (p > q) {
         printf("p = %d, q = %d(p > q), error\n", p, q);
@@ -271,7 +271,8 @@ word_t eval(int p, int q) {
                 break;
             case TK_DEREF:
                 ;
-                ret = *((word_t *)strtol(str, NULL, 16));
+                word_t *host_addr = (word_t *)guest_to_host(strtol(str, NULL, 16));
+                ret = *(host_addr);
                 break;
             default:
                 printf("Unsupported number\n");
