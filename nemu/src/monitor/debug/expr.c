@@ -45,7 +45,7 @@ static struct rule {
   {"==", TK_EQ},         // equal
   {"!=", TK_NEQ},        // not equal
   {"&&", TK_AND},        // and
-  {"\\$[A-Za-z]", TK_REG}, // register name prefix
+  {"\\$[A-Za-z]+", TK_REG}, // register name prefix
   /* operation token end */
   {"0[xX][0-9]+U?", TK_HEX_NUM}, 
   {"[0-9]+U?", TK_NUM}, // dec number (also '[[:digit:]]+U?' in POSIX)
