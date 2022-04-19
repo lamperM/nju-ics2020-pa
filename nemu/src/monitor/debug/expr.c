@@ -125,7 +125,7 @@ static bool make_token(char *e) {
               break;
           case TK_MUX:
               /* '*' may be TK_MUX or TK_DEREF */
-              if (i == 0 ) tokens[nr_token].type = TK_DEREF;
+              if (nr_token == 0 ) tokens[nr_token].type = TK_DEREF;
               else {
                   int type = tokens[nr_token - 1].type;
                   if (type == TK_RBRKT || type == TK_NUM || type == TK_HEX_NUM)
@@ -249,7 +249,8 @@ word_t eval(int p, int q) {
         int type = tokens[p].type;
         char str[32];
         word_t ret = 0;
-
+        
+        memset(str, 0 ,sizeof(str));
         strcpy(str, tokens[p].str);
         switch (type) {
             case TK_NUM:
@@ -271,6 +272,7 @@ word_t eval(int p, int q) {
             case TK_DEREF:
                 ;
                 ret = *((word_t *)strtol(str, NULL, 16));
+                break;
             default:
                 printf("Unsupported number\n");
                 assert(0);
