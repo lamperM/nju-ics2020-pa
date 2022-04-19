@@ -170,12 +170,17 @@ static bool make_token(char *e) {
                   memcpy(tokens[nr_token].str, (const char *)substr_start, substr_len); 
               break;
           case TK_HEX_NUM:
-              tokens[nr_token].type = TK_HEX_NUM;
               if (substr_len >= 10) {
                   printf("Hex number is longer than 0xFFFFFFFF \n");
                   assert(0);
               }
-              memcpy(tokens[nr_token].str, (const char *)substr_start, substr_len);
+              // Consider dereference
+              if (nr_token != 0 && tokens[nr_token - 1].type == TK_DEREF) {
+                  memcpy(tokens[--nr_token].str, (const char *)substr_start, substr_len);
+              } else {
+                  tokens[nr_token].type = TK_HEX_NUM;
+                  memcpy(tokens[nr_token].str, (const char *)substr_start, substr_len);
+              }
               break;
           default: TODO();
         }
@@ -259,7 +264,7 @@ word_t eval(int p, int q) {
                 ret = isa_reg_str2val(str, &success);
                 if (false == success) {
                     printf("%s: Invailed register name\n", str);
-                    // Should continue ui
+                    // TODO: Should continue ui
                     assert(0);
                 }
                 break;
@@ -295,7 +300,10 @@ word_t eval(int p, int q) {
              } // end of else
          } // end of for
 
-          
+    if (main_op == TK_INVAILD) {
+        printf("Missing main operator!\n");
+        assert(0); 
+    }
 //    printf("main op = %d, position = %d\n", main_op, main_op_pos);
     val1 = eval(p, main_op_pos - 1);
     val2 = eval(main_op_pos + 1, q);
@@ -310,7 +318,7 @@ word_t eval(int p, int q) {
         default:
             assert(0);
             break;
-    }  
+    } // end of switch 
      } // end of else
 
 
