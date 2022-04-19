@@ -268,6 +268,9 @@ word_t eval(int p, int q) {
                     assert(0);
                 }
                 break;
+            case TK_DEREF:
+                ;
+                ret = *((word_t *)strtol(str, NULL, 16));
             default:
                 printf("Unsupported number\n");
                 assert(0);
