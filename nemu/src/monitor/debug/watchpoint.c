@@ -34,7 +34,7 @@ WP* new_wp(void) {
     free_ = free_->next;
     return head;
 }
-*/
+
 void free(WP *wp) {
     if (NULL == wp) return;
     WP *pre = head;
@@ -52,5 +52,6 @@ void free(WP *wp) {
         wp->next = free_->next;
     free_ = wp;
 }
+*/
 // TODO: test new_wp and free
     
