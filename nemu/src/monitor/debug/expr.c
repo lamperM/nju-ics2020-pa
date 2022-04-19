@@ -15,10 +15,10 @@ enum {
   TK_EQ,      // ==
   TK_NEQ,     // !=
   TK_AND,     // &&
-  TK_DEREF,   // *
   TK_OP_END,  // operator token end...
 
   TK_REG,     // $<reg>
+  TK_DEREF,   // *
   TK_NUM,     // dec number
   TK_HEX_NUM, // hex number
 
