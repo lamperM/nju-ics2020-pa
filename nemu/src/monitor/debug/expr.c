@@ -241,8 +241,33 @@ word_t eval(int p, int q) {
         printf("p = %d, q = %d(p > q), error\n", p, q);
         assert(0);
     } else if (p == q) {
-        assert(tokens[p].type == TK_NUM);  // only base-10 supported
-        return (word_t)strtol(tokens[p].str, NULL, 10); 
+        int type = tokens[p].type;
+        char str[32];
+        word_t ret = 0;
+
+        strcpy(str, tokens[p].str);
+        switch (type) {
+            case TK_NUM:
+                ret = (word_t)strtol(str, NULL, 10); 
+                break;
+            case TK_HEX_NUM:
+                ret = (word_t)strtol(str, NULL, 16);
+                break;
+            case TK_REG:
+                ; // Introduce null statement, otherwise compile error
+                bool success = false;
+                ret = isa_reg_str2val(str, &success);
+                if (false == success) {
+                    printf("%s: Invailed register name\n", str);
+                    // Should continue ui
+                    assert(0);
+                }
+                break;
+            default:
+                printf("Unsupported number\n");
+                assert(0);
+        }
+        return ret;
     } else if (check_parentheses(p, q) == true) {
         return eval(p + 1, q - 1);
     } else {
