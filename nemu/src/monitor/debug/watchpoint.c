@@ -34,11 +34,11 @@ WP* new_wp(void) {
     free_ = free_->next;
     return head;
 }
-/*
+
 void free(WP *wp) {
+    printf("Go in free()\n");
     assert(wp != NULL && head != NULL);
     WP *pre = head;
-    printf("Go in free()\n");
 
     while(pre->next != wp && NULL != pre->next) 
         pre = pre->next;
@@ -53,5 +53,4 @@ void free(WP *wp) {
         wp->next = free_->next;
     free_ = wp;
 }
-// TODO: test new_wp and free
-  */  
+// TODO: test new_wp and free  
