@@ -16,9 +16,9 @@ enum {
   TK_NEQ,     // !=
   TK_AND,     // &&
   TK_DEREF,   // *
-  TK_REG,     // $
   TK_OP_END,  // operator token end...
 
+  TK_REG,     // $<reg>
   TK_NUM,     // dec number
   TK_HEX_NUM, // hex number
 
@@ -154,6 +154,8 @@ static bool make_token(char *e) {
               break;
           case TK_REG:
               tokens[nr_token].type = TK_REG;
+              // Jump '$'. Store register name ONLY
+              memcpy(tokens[nr_token].str, (const char *)substr_start + 1, substr_len - 1);
               break;
           case TK_NUM:
               tokens[nr_token].type = TK_NUM;
