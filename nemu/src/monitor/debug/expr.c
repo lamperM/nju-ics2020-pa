@@ -35,7 +35,8 @@ static struct rule {
   /* TODO: Add more rules.
    * Pay attention to the precedence level of different rules.
    */
-    
+  /* Add operator precedence */
+
   {" +", TK_NOTYPE, UCHAR_MAX},     // spaces
   /* operation token start */
   {"\\+", TK_PLUS, 4},      // plus
@@ -205,7 +206,7 @@ static bool make_token(char *e) {
  * Check if the expression is surrounded by a matched pair of bracket
  * and check if all brackets is vailed.
  */
-bool check_parentheses(int p, int q) {
+static bool check_parentheses(int p, int q) {
     int expr_len = q - p + 1;
     unsigned int top = 0; // top of stack
     
@@ -232,14 +233,27 @@ bool check_parentheses(int p, int q) {
     else return false;
 }
 
+static uint8_t get_precedence(int type) {
+    for (int i = 0; i < NR_REGEX; i++) {
+        if (rules[i].token_type == type) 
+            return rules[i].precedence;
+    }
+    return -1; // never be here normally
+               // '-1' means UCHAR_MAX
+}
+/*
+ * Precedence of op2 is higher than op1?
+ */
 bool priority_is_higher(int op1, int op2) {
-    assert(op1 == TK_PLUS || op1 == TK_SUB || op1 == TK_MUX || op1 == TK_DIV);
-    assert(op2 == TK_PLUS || op2 == TK_SUB || op2 == TK_MUX || op2 == TK_DIV);
+    // assert(op1 == TK_PLUS || op1 == TK_SUB || op1 == TK_MUX || op1 == TK_DIV);
+    // assert(op2 == TK_PLUS || op2 == TK_SUB || op2 == TK_MUX || op2 == TK_DIV);
+    assert(op1 > TK_OP_START && op1 < TK_OP_END);
+    assert(op2 > TK_OP_START && op2 < TK_OP_END);
 
-    if ((op1 == TK_MUX || op1 == TK_DIV) && (op2 == TK_PLUS || op2 == TK_SUB)) 
-        return true;
-    else 
-        return false;
+    uint8_t op1_prec = get_precedence(op1);
+    uint8_t op2_prec = get_precedence(op2);
+
+    return op1_prec > op2_prec ? true : false; 
 }
 
 extern void* guest_to_host(paddr_t addr);
