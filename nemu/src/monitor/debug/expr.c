@@ -241,6 +241,7 @@ static uint8_t get_precedence(int type) {
     return -1; // never be here normally
                // '-1' means UCHAR_MAX
 }
+
 /*
  * Precedence of op1 is higher than op2?
  */

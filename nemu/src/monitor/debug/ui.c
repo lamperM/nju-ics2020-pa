@@ -68,7 +68,8 @@ static int cmd_p(char *args) {
     printf("val = %d\n", val);
     return 0;
 }
-    
+static int cmd_w(char *args);
+static int cmd_d(char *args);
 static int cmd_x(char *args);
 static int cmd_help(char *args);
 static int cmd_info(char *args);
@@ -85,11 +86,20 @@ static struct {
   { "info", "Display information about following arguements", cmd_info },
   { "x", "Display memory", cmd_x },
   { "p", "Calculate expression", cmd_p },
+  { "w", "Add new watchpoint", cmd_w },
+  { "d", "Delete existing watchpoint", cmd_d},
   /* TODO: Add more commands */
 
 };
-
 #define NR_CMD (sizeof(cmd_table) / sizeof(cmd_table[0]))
+
+static int cmd_w(char *args) {
+    printf("%s\n", args);
+    return 0;
+}
+static int cmd_d(char *args) {
+    return 0;
+}
 
 static int cmd_help(char *args) {
   /* extract the first argument */
