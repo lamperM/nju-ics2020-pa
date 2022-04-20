@@ -242,7 +242,7 @@ static uint8_t get_precedence(int type) {
                // '-1' means UCHAR_MAX
 }
 /*
- * Precedence of op2 is higher than op1?
+ * Precedence of op1 is higher than op2?
  */
 bool priority_is_higher(int op1, int op2) {
     // assert(op1 == TK_PLUS || op1 == TK_SUB || op1 == TK_MUX || op1 == TK_DIV);
@@ -254,7 +254,7 @@ bool priority_is_higher(int op1, int op2) {
     uint8_t op2_prec = get_precedence(op2);
 
     // smaller is higher
-    return op2_prec < op1_prec ? true : false; 
+    return op1_prec < op2_prec ? true : false; 
 }
 
 extern void* guest_to_host(paddr_t addr);
