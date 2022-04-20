@@ -96,8 +96,12 @@ static struct {
 static int cmd_w(char *args) {
     int len = strlen(args);
     WP *wp = new_wp();
+    bool success;
+    
     wp->watch_expr = (char *)malloc(len);
     memcpy(wp->watch_expr, args, len);
+    wp->watch_value = expr(args, &success);
+
 
     return 0;
 }
