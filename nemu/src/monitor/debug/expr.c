@@ -253,7 +253,8 @@ bool priority_is_higher(int op1, int op2) {
     uint8_t op1_prec = get_precedence(op1);
     uint8_t op2_prec = get_precedence(op2);
 
-    return op1_prec > op2_prec ? true : false; 
+    // smaller is higher
+    return op2_prec < op1_prec ? true : false; 
 }
 
 extern void* guest_to_host(paddr_t addr);
