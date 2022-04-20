@@ -5,6 +5,7 @@
  */
 #include <regex.h>
 #include <stdlib.h>
+#include <limits.h>
 enum {
   TK_NOTYPE = 256,
 
@@ -28,27 +29,28 @@ enum {
 static struct rule {
   char *regex;
   int token_type;
+  unsigned char precedence;
 } rules[] = {
 
   /* TODO: Add more rules.
    * Pay attention to the precedence level of different rules.
    */
     
-  {" +", TK_NOTYPE},     // spaces
+  {" +", TK_NOTYPE, UCHAR_MAX},     // spaces
   /* operation token start */
-  {"\\+", TK_PLUS},      // plus
-  {"\\-", TK_SUB},       // sub
-  {"\\*", TK_MUX},       // mux or dereference
-  {"\\/", TK_DIV},       // div
-  {"\\(", TK_LBRKT},     // (
-  {"\\)", TK_RBRKT},     // )
-  {"==", TK_EQ},         // equal
-  {"!=", TK_NEQ},        // not equal
-  {"&&", TK_AND},        // and
-  {"\\$[A-Za-z]+", TK_REG}, // register name prefix
+  {"\\+", TK_PLUS, 4},      // plus
+  {"\\-", TK_SUB, 4},       // sub
+  {"\\*", TK_MUX, 3},       // mux or dereference
+  {"\\/", TK_DIV, 3},       // div
+  {"\\(", TK_LBRKT, 1},     // (
+  {"\\)", TK_RBRKT, 1},     // )
+  {"==", TK_EQ, 7},         // equal
+  {"!=", TK_NEQ, 7},        // not equal
+  {"&&", TK_AND, 11},        // and
+  {"\\$[A-Za-z]+", TK_REG, UCHAR_MAX}, // register name prefix
   /* operation token end */
-  {"0[xX][0-9]+U?", TK_HEX_NUM}, 
-  {"[0-9]+U?", TK_NUM}, // dec number (also '[[:digit:]]+U?' in POSIX)
+  {"0[xX][0-9]+U?", TK_HEX_NUM, UCHAR_MAX}, 
+  {"[0-9]+U?", TK_NUM, UCHAR_MAX}, // dec number (also '[[:digit:]]+U?' in POSIX)
 
 };
 
