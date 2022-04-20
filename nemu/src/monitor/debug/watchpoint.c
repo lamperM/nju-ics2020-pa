@@ -11,6 +11,8 @@ void init_wp_pool() {
   for (i = 0; i < NR_WP; i ++) {
     wp_pool[i].NO = i;
     wp_pool[i].next = &wp_pool[i + 1];
+    wp_pool[i].watch_expr = NULL;
+    wp_pool[i].watch_value = 0;
   }
   wp_pool[NR_WP - 1].next = NULL;
 

@@ -94,7 +94,11 @@ static struct {
 #define NR_CMD (sizeof(cmd_table) / sizeof(cmd_table[0]))
 
 static int cmd_w(char *args) {
-    printf("%s\n", args);
+    int len = strlen(args);
+    WP *wp = new_wp();
+    wp->watch_expr = (char *)malloc(len);
+    memcpy(wp->watch_expr, args, len);
+
     return 0;
 }
 static int cmd_d(char *args) {
