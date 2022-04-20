@@ -327,7 +327,7 @@ word_t eval(int p, int q) {
         printf("Missing main operator!\n");
         assert(0); 
     }
-    printf("main op = %d, position = %d\n", main_op, main_op_pos);
+//    printf("main op = %d, position = %d\n", main_op, main_op_pos);
     val1 = eval(p, main_op_pos - 1);
     val2 = eval(main_op_pos + 1, q);
     
