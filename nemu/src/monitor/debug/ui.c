@@ -96,12 +96,18 @@ static struct {
 static int cmd_w(char *args) {
     int len = strlen(args);
     WP *wp = new_wp();
+    uint32_t value = 0;
     bool success;
     
     wp->watch_expr = (char *)malloc(len);
     memcpy(wp->watch_expr, args, len);
-    wp->watch_value = expr(args, &success);
-
+    value = expr(args, &success);
+    if (false == success) {
+        Log("Error occurs in expr()\n");
+        free_wp(wp);
+        return -1;
+    }
+    wp->watch_value = value;
 
     return 0;
 }
