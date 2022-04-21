@@ -42,8 +42,8 @@ void free_wp(WP *wp) {
     printf("free_wp.NO: %d what: %s\n", wp->NO, wp->watch_expr);
     free(wp->watch_expr);
     wp->watch_value = 0;
-    if (pre == wp) {
-        pre = wp->next;
+    if (head == wp) {
+        head = wp->next;
     } else {
         while(pre->next != wp && NULL != pre->next) 
             pre = pre->next;
