@@ -29,10 +29,7 @@ WP* new_wp(void) {
         assert(0);
     }
     free_ = free_->next;
-    if (NULL == head)
-        p->next = NULL;
-    else
-        p->next = head;
+    p->next = head;
     head = p;
     return head;
 }
@@ -41,6 +38,7 @@ void free_wp(WP *wp) {
     assert(wp != NULL && head != NULL);
     WP *pre = head;
 
+    printf("free_wp.NO: %d\n", wp->NO);
     if (pre == wp) {
         pre = wp->next;
     } else {
