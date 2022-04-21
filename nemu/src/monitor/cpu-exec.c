@@ -1,6 +1,7 @@
 #include <isa.h>
 #include <monitor/monitor.h>
 #include <monitor/difftest.h>
+#include "debug/watchpoint.h"
 #include <stdlib.h>
 #include <sys/time.h>
 
