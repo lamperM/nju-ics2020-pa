@@ -90,6 +90,7 @@ bool check_wp_changed(void) {
         if (false == success) assert(0);
         if (new_v != old_v) {
             printf("Watchpoint %d is hitted, new value:%u\n", p->NO, new_v);
+            p->watch_value = new_v;
             changed = true;
         }
     }
