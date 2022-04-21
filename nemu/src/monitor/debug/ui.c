@@ -113,6 +113,21 @@ static int cmd_w(char *args) {
 }
 static int cmd_d(char *args) {
     
+    char *arg = strtok(NULL, " ");
+    if (NULL == arg) {
+        printf("Watchpoint(s) number is needed\n");
+        return -1;
+    }
+    do {
+        int w_no = strtol(arg, NULL, 10);
+        WP *wp = no_to_wp(w_no);
+        if (NULL == wp) {
+            printf("watchpoint %d is not exist.\n", w_no);
+            continue;
+        }
+        free_wp(wp);
+    } while(NULL != (arg = strtok(NULL, " ")));
+
     return 0;
 }
 

@@ -55,3 +55,10 @@ void free_wp(WP *wp) {
     free_ = wp;
 }
 // TODO: test new_wp and free  
+WP* no_to_wp(int no) {
+    if (no > NR_WP) return NULL;
+    for (WP *p = head; p != NULL; p = p->next) 
+        if (p->NO == no) return p;
+
+    return NULL;
+}
