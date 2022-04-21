@@ -64,6 +64,7 @@ WP* no_to_wp(int no) {
 
     return NULL;
 }
+
 /*
  * List all watchpoint(without order).
  */
@@ -71,4 +72,27 @@ void watchpoint_display(void) {
   for(WP *p = head; p != NULL; p = p->next) {
     printf("NO: %d, what:%s, value:%d\n", p->NO, p->watch_expr, p->watch_value);
   }
-}  
+} 
+
+/*
+ * Call it after CPU execute an instruction.
+ */
+bool check_wp_changed(void) {
+    WP *p = head;
+    bool changed = false;
+    
+    for(; p != NULL; p = p->next) {
+        char *e = p->watch_expr;
+        uint32_t old_v = p->watch_value;
+        bool success;
+        uint32_t new_v = expr(e, &success);
+
+        if (false == success) assert(0);
+        if (new_v != old_v) {
+            printf("Watchpoint %d is hitted, new value:%u\n", p->NO, new_v);
+            changed = true;
+        }
+    }
+
+    return changed;
+}

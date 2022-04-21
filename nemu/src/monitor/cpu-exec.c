@@ -88,6 +88,9 @@ void cpu_exec(uint64_t n) {
 
 #ifdef DEBUG
     asm_print(this_pc, seq_pc - this_pc, n < MAX_INSTR_TO_PRINT);
+    if (true == check_wp_changed()) {
+        nemu_state.state = NEMU_STOP;
+    }
 
     /* TODO: check watchpoints here. */
 #endif
@@ -105,6 +108,7 @@ void cpu_exec(uint64_t n) {
 
   switch (nemu_state.state) {
     case NEMU_RUNNING: nemu_state.state = NEMU_STOP; break;
+    case NEMU_STOP:
 
     case NEMU_END: case NEMU_ABORT:
       Log("nemu: %s\33[0m at pc = " FMT_WORD "\n\n",
