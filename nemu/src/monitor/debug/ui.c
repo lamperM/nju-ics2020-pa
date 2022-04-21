@@ -100,6 +100,7 @@ static int cmd_w(char *args) {
     bool success;
     
     wp->watch_expr = (char *)malloc(len);
+    memset(wp->watch_expr, 0, len);
     memcpy(wp->watch_expr, args, len);
     value = expr(args, &success);
     if (false == success) {
