@@ -32,7 +32,7 @@ WP* new_wp(void) {
     if (NULL == head)
         p->next = NULL;
     else
-        p->next = head->next;
+        p->next = head;
     head = p;
     return head;
 }
