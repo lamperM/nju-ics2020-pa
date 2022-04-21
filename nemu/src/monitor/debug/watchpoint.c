@@ -41,17 +41,18 @@ void free_wp(WP *wp) {
     assert(wp != NULL && head != NULL);
     WP *pre = head;
 
-    while(pre->next != wp && NULL != pre->next) 
-        pre = pre->next;
-    if (pre->next != wp) {
-        printf("Free WP is not exist. Fix the bug!\n");
-        assert(0);
+    if (pre == wp) {
+        pre = wp->next;
+    } else {
+        while(pre->next != wp && NULL != pre->next) 
+            pre = pre->next;
+        if (pre->next != wp) {
+            printf("Free WP is not exist. Fix the bug!\n");
+            assert(0);
+        }
+        pre->next = wp->next;
     }
-    pre->next = wp->next;
-    if (NULL == free_)
-        wp->next = NULL;
-    else 
-        wp->next = free_->next;
+    wp->next = free_;
     free_ = wp;
 }
 // TODO: test new_wp and free  
