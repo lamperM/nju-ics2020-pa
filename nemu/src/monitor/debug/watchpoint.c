@@ -28,12 +28,12 @@ WP* new_wp(void) {
         printf("No free WP!\n");
         assert(0);
     }
+    free_ = free_->next;
     if (NULL == head)
         p->next = NULL;
     else
         p->next = head->next;
     head = p;
-    free_ = free_->next;
     return head;
 }
 
