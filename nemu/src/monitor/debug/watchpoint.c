@@ -1,3 +1,4 @@
+#include <stdlib.h>
 #include "watchpoint.h"
 #include "expr.h"
 
@@ -38,7 +39,9 @@ void free_wp(WP *wp) {
     assert(wp != NULL && head != NULL);
     WP *pre = head;
 
-    printf("free_wp.NO: %d\n", wp->NO);
+    printf("free_wp.NO: %d what: %s\n", wp->NO, wp->watch_expr);
+    free(wp->watch_expr);
+    wp->watch_value = 0;
     if (pre == wp) {
         pre = wp->next;
     } else {
