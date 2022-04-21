@@ -62,3 +62,11 @@ WP* no_to_wp(int no) {
 
     return NULL;
 }
+/*
+ * List all watchpoint(without order).
+ */
+void watchpoint_display(void) {
+  for(WP *p = head; p != NULL; p = p->next) {
+    printf("NO: %d, what:%s, value:%d\n", p->NO, p->watch_expr, p->watch_value);
+  }
+}  

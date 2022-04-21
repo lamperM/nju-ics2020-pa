@@ -190,7 +190,7 @@ static int cmd_info(char *args) {
     char *arg = strtok(NULL, " ");
 
     if (arg == NULL) {
-        printf("invailed arguments\n");
+        printf("info what?\n");
         return 0;
     }
     
