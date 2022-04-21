@@ -99,8 +99,8 @@ static int cmd_w(char *args) {
     uint32_t value = 0;
     bool success;
     
-    wp->watch_expr = (char *)malloc(len);
-    memset(wp->watch_expr, 0, len);
+    wp->watch_expr = (char *)malloc(len+1);
+    memset(wp->watch_expr, 0, len+1);
     memcpy(wp->watch_expr, args, len);
     value = expr(args, &success);
     if (false == success) {
