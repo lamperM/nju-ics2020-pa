@@ -88,11 +88,12 @@ void cpu_exec(uint64_t n) {
 
 #ifdef DEBUG
     asm_print(this_pc, seq_pc - this_pc, n < MAX_INSTR_TO_PRINT);
+
+    /* TODO: check watchpoints here. */
     if (true == check_wp_changed()) {
         nemu_state.state = NEMU_STOP;
     }
 
-    /* TODO: check watchpoints here. */
 #endif
 
 #ifdef HAS_IOE
