@@ -119,4 +119,5 @@ clean:
 	$(MAKE) -C tools/qemu-diff clean
 	$(MAKE) -C tools/kvm-diff clean
 count:
+	# '$$' in Makefile means '$' in shell
 	@(find ./ -name '*.[c|h]' -print0 | xargs -0 cat) | sed '/^\s*$$/d' | wc -l 
