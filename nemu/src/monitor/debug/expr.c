@@ -380,12 +380,12 @@ static bool split_expr_rst(char *buf, char *expr, char *result) {
     if (NULL == p)  success = false;
     else {
         // *result = strdup(p);
-        strcpy(expr, p);
+        strcpy(result, p);
         p = strtok(NULL, "\n");
         if (NULL == p)  success = false;
         else {
             // *expr = strdup(p); 
-            strcpy(result, p);  // Will add NULL terminator
+            strcpy(expr, p);  // Will add NULL terminator
         }
     }
 
