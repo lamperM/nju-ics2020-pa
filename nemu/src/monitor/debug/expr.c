@@ -372,18 +372,20 @@ word_t expr(char *e, bool *success) {
     return res;
 }
 
-static bool split_expr_rst(char *buf, char **expr, char **result) {
+static bool split_expr_rst(char *buf, char *expr, char *result) {
     bool success = true;
     char *p = NULL;
 
     p = strtok(buf, " ");
     if (NULL == p)  success = false;
     else {
-        *result = strdup(p);
+        // *result = strdup(p);
+        strcpy(expr, p);
         p = strtok(NULL, "\n");
         if (NULL == p)  success = false;
         else {
-            *expr = strdup(p); // Will add NULL terminator
+            // *expr = strdup(p); 
+            strcpy(result, p);  // Will add NULL terminator
         }
     }
 
@@ -414,19 +416,17 @@ bool test_expr(void) {
     }
 
     while ((read_size = getline(&buf, &len, fd)) != -1) {
-        char *expr_s, *rst_s;
+        char expr_s[read_size];
+        char rst_s[read_size];
         uint32_t rst = 0;
         bool success = true; // expr() execute flag
         uint32_t cal_rst = 0; // expr() calculate result
 
-        expr_s = (char *)malloc(read_size);
-        rst_s = (char *)malloc(read_size);
 
 //        printf("line %zu:\n", read);
 //        printf("%s", buf);
-        if (split_expr_rst(buf, &expr_s, &rst_s) == false) {
+        if (split_expr_rst(buf, expr_s, rst_s) == false) {
             printf("Split expression error\n");
-            free(expr_s); free(rst_s);
             goto failed;
         }
         
@@ -434,17 +434,14 @@ bool test_expr(void) {
         cal_rst = expr(expr_s, &success);
         if (true != success) {
             printf("Execute expr() error\n");
-            free(expr_s); free(rst_s);
             goto failed;
         }
         if (cal_rst != rst) {
             printf("Calculate error!\n");
             printf("expression: %s\n", expr_s);
             printf("result: %u, expr return:%u\n", rst, cal_rst);
-            free(expr_s); free(rst_s);
             goto failed;
         }
-        free(expr_s); free(rst_s);
     } // end of while
 
         printf("Expression calculate test passed!\n"); 
