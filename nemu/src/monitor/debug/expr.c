@@ -78,7 +78,7 @@ void init_regex() {
     }
   }
 
-  test_expr();
+  // test_expr();
 }
 
 typedef struct token {
