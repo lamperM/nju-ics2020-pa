@@ -8,11 +8,11 @@ enum { OP_TYPE_REG, OP_TYPE_MEM, OP_TYPE_IMM };
 
 typedef struct {
   uint32_t type;  // immediate, register, memory
-  int width;      // 1, 2 ,4 byte
+  int width;      // 1, 2 ,4 byte. Set in set_width()
   union {
     uint32_t reg;
     word_t imm;
-    sword_t simm;
+    sword_t simm; // signed immediate
   };
   rtlreg_t *preg;
   rtlreg_t val;

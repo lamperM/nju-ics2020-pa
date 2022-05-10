@@ -18,11 +18,12 @@ static inline void operand_reg(DecodeExecState *s, Operand *op, bool load_val, i
   print_Dop(op->str, OP_STR_SIZE, "%%%s", reg_name(r, width));
 }
 
+// Set op member properties as IMMEDIATE
 static inline void operand_imm(DecodeExecState *s, Operand *op, bool load_val, word_t imm, int width) {
   op->type = OP_TYPE_IMM;
   op->imm = imm;
   if (load_val) {
-    rtl_li(s, &op->val, imm);
+    rtl_li(s, &op->val, imm); // imm -> (op->val)
     op->preg = &op->val;
   }
   print_Dop(op->str, OP_STR_SIZE, "$0x%x", imm);
