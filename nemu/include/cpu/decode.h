@@ -7,8 +7,8 @@
 enum { OP_TYPE_REG, OP_TYPE_MEM, OP_TYPE_IMM };
 
 typedef struct {
-  uint32_t type;
-  int width;
+  uint32_t type;  // immediate, register, memory
+  int width;      // 1, 2 ,4 byte
   union {
     uint32_t reg;
     word_t imm;
@@ -17,10 +17,10 @@ typedef struct {
   rtlreg_t *preg;
   rtlreg_t val;
   char str[OP_STR_SIZE];
-} Operand;
+} Operand; /* operand of one instruction */
 
 typedef struct {
-  uint32_t opcode;
+  uint32_t opcode;  
   vaddr_t seq_pc;  // sequential pc
   uint32_t is_jmp;
   vaddr_t jmp_pc;
@@ -28,7 +28,7 @@ typedef struct {
   int width;
   rtlreg_t tmp_reg[4];
   ISADecodeInfo isa;
-} DecodeExecState;
+} DecodeExecState; /* decode and execute information of one instruction */
 
 #define def_DHelper(name) void concat(decode_, name) (DecodeExecState *s)
 
