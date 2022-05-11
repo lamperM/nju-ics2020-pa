@@ -28,7 +28,8 @@ static inline def_rtl(push, const rtlreg_t* src1) {
   // esp <- esp - 4
   cpu.esp -= 4;
   // M[esp] <- src1
-  rtl_sr(s, R_ESP, src1, s->dest.width);
+  rtl_lr(s, id_dest->preg, R_ESP, s->dest.width);
+  rtl_sm(s, id_dest->preg, 0, src1, s->dest.width);
 }
 
 static inline def_rtl(pop, rtlreg_t* dest) {
