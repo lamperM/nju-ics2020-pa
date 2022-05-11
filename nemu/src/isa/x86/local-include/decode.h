@@ -295,9 +295,14 @@ static inline def_DHelper(out_a2dx) {
 
 
 static inline def_DHelper(A) {
-    // todo
-    decode_op_SI(s, id_dest, false);
+    // decode immediate from instruction
+    decode_op_SI(s, id_dest, true); // value is needed for caculating return address.
+
+    // caculate jump address
     s->jmp_pc = id_dest->simm + s->seq_pc;
+    
+    // caculate return address
+    // todo
 }
 
 static inline void operand_write(DecodeExecState *s, Operand *op, rtlreg_t* src) {

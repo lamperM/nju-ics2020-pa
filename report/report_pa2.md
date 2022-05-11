@@ -67,6 +67,7 @@ static inline def_rtl(j, vaddr_t target) {
   s->is_jmp = true;
 }
 
+//x86/exec/control.h
 static inline def_EHelper(jmp) {
   // the target address is calculated at the decode stage
   rtl_j(s, s->jmp_pc);
