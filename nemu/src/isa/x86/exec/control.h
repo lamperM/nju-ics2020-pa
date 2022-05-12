@@ -24,8 +24,8 @@ static inline def_EHelper(jmp_rm) {
 
 static inline def_EHelper(call) {
   // push return address to stack
-  rtl_li(s, id_dest->preg, 0x1000f);
-  rtl_push(s, id_dest->preg);
+  rtl_li(s, ddest, 0x1000f);
+  rtl_push(s, ddest);
 
   // the target address is calculated at the decode stage
   rtl_j(s, s->jmp_pc);
