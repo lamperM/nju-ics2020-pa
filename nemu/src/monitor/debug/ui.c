@@ -162,26 +162,27 @@ static int cmd_x(char *args) {
     if (arg == NULL) {
         goto invaild;
     } else {
-        int byte_num = atoi(arg);
-        uint64_t g_addr = 0; // guest addr
-        uint8_t *h_addr = 0; // host addr
+        int nr_is = atoi(arg); // How many WORD to print
         
-        arg = strtok(NULL, " ");
-        if (arg == NULL) {
-            goto invaild;
-        } else {
-            g_addr = (uint64_t)strtol(arg, NULL, 16);
-            printf("0x%0lx:", g_addr);
-            for (int i = 0; i < byte_num; i++) {
-                h_addr = (uint8_t *)guest_to_host(g_addr);
-                printf(" 0x%02x", *(h_addr + i));
+        uint64_t g_addr = 0; // guest addr
+        word_t *h_addr = 0; // host addr
+        bool success;
+
+        if (NULL != (arg = strtok(NULL, " "))) { // show be '\n'
+            g_addr = expr(arg, &success);
+            if (true == success) {
+                printf("0x%0lx:", g_addr);
+                h_addr = guest_to_host(g_addr);
+
+                for (int i = 0; i < nr_is; i++)
+                    printf(" 0x%x", *(h_addr + i));
+                printf("\n");
+
+                return 0;
             }
-            printf("\n");
         }
+    } // end of else
 
-    }
-
-    return 0;
 invaild:
     printf("invailed arguments\n");
     return 0;
@@ -205,10 +206,13 @@ static int cmd_info(char *args) {
 
 
 void ui_mainloop() {
+    // disable auto-run temporarily
+    /*
   if (is_batch_mode()) {
     cmd_c(NULL);
     return;
   }
+  */
 
   for (char *str; (str = rl_gets()) != NULL; ) {
     char *str_end = str + strlen(str);
