@@ -172,10 +172,11 @@ static int cmd_x(char *args) {
             g_addr = expr(arg, &success);
             if (true == success) {
                 printf("0x%0lx:", g_addr);
-                h_addr = guest_to_host(g_addr);
 
-                for (int i = 0; i < nr_is; i++)
-                    printf(" 0x%08x", *(h_addr + 4*i));
+                for (int i = 0; i < nr_is; i++) {
+                    h_addr = guest_to_host(g_addr + 4);
+                    printf(" 0x%08x", *(h_addr));
+                }
                 printf("\n");
 
                 return 0;
