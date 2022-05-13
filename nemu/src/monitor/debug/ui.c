@@ -175,7 +175,7 @@ static int cmd_x(char *args) {
             
                     h_addr = guest_to_host(g_addr);
                     printf(" 0x%08x", *(h_addr));
-                    g_addr += (4 * i);
+                    g_addr += 4;
                 }
                 printf("\n");
 
