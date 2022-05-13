@@ -171,11 +171,11 @@ static int cmd_x(char *args) {
             if (true == success) {
 
                 for (int i = 0; i < nr_is; i++) {
-                    if (i % 4 == 0) {
-                        printf("\n0x%0x:", g_addr);
-                    }
-                    h_addr = guest_to_host(g_addr + 4*i);
+                    if (i % 4 == 0)  printf("\n0x%0x:", g_addr);
+            
+                    h_addr = guest_to_host(g_addr);
                     printf(" 0x%08x", *(h_addr));
+                    g_addr += (4 * i);
                 }
                 printf("\n");
 
