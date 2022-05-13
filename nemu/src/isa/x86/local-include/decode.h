@@ -300,9 +300,6 @@ static inline def_DHelper(A) {
 
     // caculate jump address
     s->jmp_pc = id_dest->simm + s->seq_pc;
-    
-    // caculate return address
-    // todo
 }
 
 static inline void operand_write(DecodeExecState *s, Operand *op, rtlreg_t* src) {
