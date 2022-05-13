@@ -155,18 +155,19 @@ static int cmd_help(char *args) {
   return 0;
 }
 
+/* Print 4-byte at a time */
 static int cmd_x(char *args) {
     extern void* guest_to_host(paddr_t addr);
-    char *arg;
+    char *arg = NULL;
     
-    if (NULL != (arg = strtok(NULL, " "))) { 
-        int nr_is = atoi(arg); // How many WORD to print
+    if (NULL != (arg = strtok(NULL, " "))) { // get number
+        int nr_is = atoi(arg);
         
         uint32_t g_addr = 0; // guest addr
         word_t *h_addr = 0; // host addr
         bool success;
 
-        if (NULL != (arg = strtok(NULL, "\n"))) { // show be '\n'
+        if (NULL != (arg = strtok(NULL, "\n"))) { // get expression
             g_addr = expr(arg, &success);
             if (true == success) {
                 /* print memory */
