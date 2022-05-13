@@ -169,21 +169,19 @@ static int cmd_x(char *args) {
         if (NULL != (arg = strtok(NULL, "\n"))) { // show be '\n'
             g_addr = expr(arg, &success);
             if (true == success) {
-
+                /* print memory */
                 for (int i = 0; i < nr_is; i++) {
                     if (i % 4 == 0)  printf("\n0x%0x:", g_addr);
-            
                     h_addr = guest_to_host(g_addr);
                     printf(" 0x%08x", *(h_addr));
                     g_addr += 4;
                 }
                 printf("\n");
-
                 return 0;
             } else {
                 printf("calculate expression error\n");
             }
-        } // end of if
+        } 
     } // end of if
 
     printf("invailed arguments\n");
