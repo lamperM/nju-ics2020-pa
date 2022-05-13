@@ -155,39 +155,38 @@ static int cmd_help(char *args) {
   return 0;
 }
 
+/* Print 4-byte at a time */
 static int cmd_x(char *args) {
     extern void* guest_to_host(paddr_t addr);
-    char *arg = strtok(NULL, " ");
+    char *arg = NULL;
     
-    if (arg == NULL) {
-        goto invaild;
-    } else {
-        int nr_is = atoi(arg); // How many WORD to print
+    if (NULL != (arg = strtok(NULL, " "))) { // get number
+        int nr_is = atoi(arg);
         
-        uint64_t g_addr = 0; // guest addr
+        uint32_t g_addr = 0; // guest addr
         word_t *h_addr = 0; // host addr
         bool success;
 
-        if (NULL != (arg = strtok(NULL, " "))) { // show be '\n'
+        if (NULL != (arg = strtok(NULL, "\n"))) { // get expression
             g_addr = expr(arg, &success);
             if (true == success) {
-                printf("0x%0lx:", g_addr);
-
+                /* print memory */
                 for (int i = 0; i < nr_is; i++) {
-                    h_addr = guest_to_host(g_addr + 4*i);
+                    if (i % 4 == 0)  printf("\n0x%0x:", g_addr);
+                    h_addr = guest_to_host(g_addr);
                     printf(" 0x%08x", *(h_addr));
+                    g_addr += 4;
                 }
                 printf("\n");
-
                 return 0;
+            } else {
+                printf("calculate expression error\n");
             }
-        }
-    } // end of else
+        } 
+    } // end of if
 
-invaild:
     printf("invailed arguments\n");
     return 0;
-    
 }
 static int cmd_info(char *args) {
     char *arg = strtok(NULL, " ");
