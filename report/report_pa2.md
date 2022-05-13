@@ -9,9 +9,9 @@ A: 需要考虑两种情况下**数据存储的位置在哪**，又是**谁将�
 2. 若NEMU上运行Motorola 68k的target，此时target中定义的常数表面上是保存到了NEMU模拟的内存，也就是定义的一个大数组当中（虽然最终都是存到物理内存上）。但是很重要的区别是：**从定义常量的代码到指令写入模拟内存的部分是NEMU实现的**，也就是需要我们进行大小端的正确识别。也就是说在模拟内存的层面上已经转换为正确的格式了，模拟内存映射到物理内存这一步到底怎么样是由编译器、由NEMU运行在何种架构来决定的。
 
 
-
-## Set up
-### Decode
+## 实现命令
+### Set up
+#### Decode
 ```c
 // decode.h
 #define def_DHelper(name) void concat(decode_, name) (DecodeExecState *s)
@@ -19,27 +19,6 @@ A: 需要考虑两种情况下**数据存储的位置在哪**，又是**谁将�
 #define def_DopHelper(name) void concat(decode_op_, name) (DecodeExecState *s, Operand *op, bool load_val)
 
 // local-include/decode.h
-static inline def_DHelper(A) {
-    // todo
-    decode_op_SI(s, id_dest, false);
-    s->jmp_pc = id_dest->simm + s->seq_pc;
-}
-static inline def_DHelper(push_SI) {
-  decode_op_SI(s, id_dest, true);
-}
-/* sign immediate */
-static inline def_DopHelper(SI) {
-  assert(op->width == 1 || op->width == 4);
-
-  /* TODO: Use instr_fetch() to read `op->width' bytes of memory
-   * pointed by 's->seq_pc'. Interpret the result as a signed immediate,
-   * and call `operand_imm()` as following.
-   *
-   operand_imm(s, op, load_val, ???, op->width);
-   */
-    sword_t simm = instr_fetch(&s->seq_pc, op->width);
-    operand_imm(s, op, load_val, simm, op->width);
-}
 static inline void operand_imm(DecodeExecState *s, Operand *op, bool load_val, word_t imm, int width) {
   op->type = OP_TYPE_IMM;
   op->imm = imm;
@@ -49,14 +28,9 @@ static inline void operand_imm(DecodeExecState *s, Operand *op, bool load_val, w
   }
   print_Dop(op->str, OP_STR_SIZE, "$0x%x", imm);
 }
-
-// pseudo.h
-static inline def_rtl(li, rtlreg_t* dest, const rtlreg_t imm) {
-  rtl_addi(s, dest, rz, imm);
-}
 ```
 
-### Execute
+#### Execute
 ```c
 //rtl.h
 #define def_rtl(name, ...) void concat(rtl_, name)(DecodeExecState *s, __VA_ARGS__)
@@ -73,5 +47,38 @@ static inline def_EHelper(jmp) {
   rtl_j(s, s->jmp_pc);
 
   print_asm("jmp %x", s->jmp_pc);
+}
+```
+
+
+### push(imm32)
+#### Decode
+```c
+// local-include/decode.h
+/* Ib, Iv */
+static inline def_DopHelper(I) {
+  /* pc here is pointing to the immediate */
+  word_t imm = instr_fetch(&s->seq_pc, op->width);
+  operand_imm(s, op, load_val, imm, op->width);
+}
+
+static inline def_DHelper(I) {
+  decode_op_I(s, id_dest, true);
+}
+```
+#### Execute
+```c
+// x86/exec/data-mov.h
+static inline def_EHelper(push) {
+  TODO();
+  print_asm_template1(push);
+}
+
+// control.h
+static inline def_rtl(push, const rtlreg_t* src1) {
+  // esp <- esp - 4
+  cpu.esp -= 4;
+  // M[esp] <- src1
+  rtl_sm(s, &(cpu.esp), 0, src1, s->dest.width);
 }
 ```

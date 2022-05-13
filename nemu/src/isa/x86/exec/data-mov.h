@@ -4,7 +4,8 @@ static inline def_EHelper(mov) {
 }
 
 static inline def_EHelper(push) {
-  TODO();
+  // target data is stored in s->dest at the decode stage
+  rtl_push(s, ddest);
   print_asm_template1(push);
 }
 
