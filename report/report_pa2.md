@@ -51,8 +51,8 @@ static inline def_EHelper(jmp) {
 ```
 
 
-### push(imm32)
-#### Decode
+### push
+#### Decode(imm32)
 ```c
 // local-include/decode.h
 /* Ib, Iv */
@@ -66,11 +66,23 @@ static inline def_DHelper(I) {
   decode_op_I(s, id_dest, true);
 }
 ```
+#### Decode(reg32)
+```c
+// local-include/decode.h
+static inline def_DopHelper(r) {
+  operand_reg(s, op, load_val, s->opcode & 0x7, op->width);
+}
+
+static inline def_DHelper(r) {
+  decode_op_r(s, id_dest, true);
+}
+```
 #### Execute
 ```c
 // x86/exec/data-mov.h
 static inline def_EHelper(push) {
-  TODO();
+  // target data is stored in s->dest at the decode stage
+  rtl_push(s, ddest);
   print_asm_template1(push);
 }
 
