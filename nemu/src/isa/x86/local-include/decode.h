@@ -3,6 +3,7 @@
 
 void read_ModR_M(DecodeExecState *s, Operand *rm, bool load_rm_val, Operand *reg, bool load_reg_val);
 
+// 设置 Operand 结构体的 preg 和 val 
 static inline void operand_reg(DecodeExecState *s, Operand *op, bool load_val, int r, int width) {
   op->type = OP_TYPE_REG;
   op->reg = r;
