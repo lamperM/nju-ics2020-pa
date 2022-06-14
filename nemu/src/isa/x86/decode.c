@@ -105,14 +105,14 @@ static inline void load_addr(DecodeExecState *s, ModR_M *m, Operand *rm) {
 void read_ModR_M(DecodeExecState *s, Operand *rm, bool load_rm_val, Operand *reg, bool load_reg_val) {
   ModR_M m;
   m.val = instr_fetch(&s->seq_pc, 1);
-  printf("aqwqwq=========\n");
   s->isa.ext_opcode = m.opcode;
   if (reg != NULL) operand_reg(s, reg, load_reg_val, m.reg, reg->width);
   if (m.mod == 3) operand_reg(s, rm, load_rm_val, m.R_M, rm->width);
   else {
     load_addr(s, &m, rm);
     if (load_rm_val) rtl_lm(s, &rm->val, s->isa.mbase, s->isa.moff, rm->width);
-    printf("rm->val: %d\n", rm->val);
     rm->preg = &rm->val;
   }
+
+  printf("rm->val: %d\n", rm->val);
 }
