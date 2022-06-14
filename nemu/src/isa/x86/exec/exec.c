@@ -16,8 +16,11 @@ static inline def_EHelper(gp1) {
     printf("ext_code: %d\n", s->isa.ext_opcode);
     printf("Operand src1.type: %d, val: %d\n", s->src1.type, s->src1.val);
   switch (s->isa.ext_opcode) {
+      case 5:
+          rtl_subi(s, ddest, ddest, s->src1.simm);
+          break;
     EMPTY(0) EMPTY(1) EMPTY(2) EMPTY(3)
-    EMPTY(4) EMPTY(5) EMPTY(6) EMPTY(7)
+    EMPTY(4)  EMPTY(6) EMPTY(7)
 
   }
 }
