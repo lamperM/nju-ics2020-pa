@@ -41,7 +41,25 @@ typedef struct {
         };
     };
     vaddr_t pc;
-  
+
+    // wangl add in pa2
+    union {
+        struct {
+            uint8_t CF : 1;
+            uint8_t res1 : 1;
+            uint8_t PF : 1;
+            uint8_t res0 : 1;
+            uint8_t ZF : 1;
+            uint8_t SF : 1;
+            uint8_t TF : 1;
+            uint8_t IF : 1;
+            uint8_t DF : 1;
+            uint8_t OF : 1;
+            // TODO: unfinish
+        };
+
+        rtlreg_t eflags;
+    };
 } x86_CPU_state;
 
 
