@@ -11,7 +11,7 @@ static inline def_EHelper(and) {
 }
 
 static inline def_EHelper(xor) {
-  TODO();
+  printf("dest optype: %d, r:%d\n", s->dest.type, s->dest.val);
   print_asm_template2(xor);
 }
 

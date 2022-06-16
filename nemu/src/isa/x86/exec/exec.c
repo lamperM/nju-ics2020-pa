@@ -83,6 +83,7 @@ again:
   s->opcode = opcode;
   switch (opcode) {
     EX   (0x0f, 2byte_esc)
+    IDEX (0x31, G2E, xor); // xor(31)
     IDEX (0x50, r, push) /* push(EAX) */
     IDEX (0x51, r, push) /* push(ECX) */
     IDEX (0x52, r, push) /* push(EDX) */
@@ -94,7 +95,7 @@ again:
     IDEX (0x68, I, push) /* push(imm32) */
     IDEXW(0x80, I2E, gp1, 1)
     IDEX (0x81, I2E, gp1)
-    IDEX (0x83, SI2E, gp1)
+    IDEX (0x83, SI2E, gp1) // sub
     IDEXW(0x88, mov_G2E, mov, 1)
     IDEX (0x89, mov_G2E, mov)
     IDEXW(0x8a, mov_E2G, mov, 1)
