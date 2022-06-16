@@ -23,6 +23,7 @@ static inline def_EHelper(gp1) {
     EMPTY(4)  EMPTY(6) EMPTY(7)
 
   }
+  print_asm_template2(gp1);
 }
 
 /* 0xc0, 0xc1, 0xd0, 0xd1, 0xd2, 0xd3 */
