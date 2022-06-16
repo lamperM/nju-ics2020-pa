@@ -18,12 +18,12 @@ static inline def_EHelper(gp1) {
   switch (s->isa.ext_opcode) {
       case 5:
           rtl_subi(s, ddest, ddest, s->src1.simm);
+          print_asm_template2(sub);
           break;
     EMPTY(0) EMPTY(1) EMPTY(2) EMPTY(3)
     EMPTY(4)  EMPTY(6) EMPTY(7)
 
   }
-  print_asm_template2(gp1);
 }
 
 /* 0xc0, 0xc1, 0xd0, 0xd1, 0xd2, 0xd3 */
