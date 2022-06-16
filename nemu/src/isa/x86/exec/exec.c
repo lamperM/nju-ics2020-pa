@@ -12,9 +12,9 @@ static inline void set_width(DecodeExecState *s, int width) {
 
 /* 0x80, 0x81, 0x83 */
 static inline def_EHelper(gp1) {
-    printf("Operand dest.type: %d, r:%d\n", s->dest.type, s->dest.reg);
-    printf("ext_code: %d\n", s->isa.ext_opcode);
-    printf("Operand src1.type: %d, val: %d\n", s->src1.type, s->src1.val);
+  //  printf("Operand dest.type: %d, r:%d\n", s->dest.type, s->dest.reg);
+  //  printf("ext_code: %d\n", s->isa.ext_opcode);
+  //  printf("Operand src1.type: %d, val: %d\n", s->src1.type, s->src1.val);
   switch (s->isa.ext_opcode) {
       case 5:
           rtl_subi(s, ddest, ddest, s->src1.simm);
