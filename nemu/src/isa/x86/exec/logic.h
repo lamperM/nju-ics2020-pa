@@ -19,7 +19,8 @@ static inline def_EHelper(xor) {
   rm_type = s->src1.type;
   if (rm_type == OP_TYPE_REG) {
       rtl_xor(s, ddest, ddest, dsrc1);
-  } else {
+  } else if (rm_type == OP_TYPE_IMM) { /* 是否应该这样判断? */
+      /* 如何区别simm和imm? decode时会存入哪里? */
       rtl_xori(s, ddest, ddest, s->src1.simm);
   }
   print_asm_template2(xor);
