@@ -34,9 +34,12 @@ static inline def_EHelper(call) {
 }
 
 static inline def_EHelper(ret) {
+    // pop return address
     rtl_pop(s, &(s->jmp_pc));
+    // choose jmp_pc as new pc
     s->is_jmp = true;
-  print_asm("ret");
+
+    print_asm("ret");
 }
 
 static inline def_EHelper(ret_imm) {
