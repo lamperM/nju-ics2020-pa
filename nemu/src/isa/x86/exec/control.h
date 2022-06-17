@@ -34,7 +34,7 @@ static inline def_EHelper(call) {
 }
 
 static inline def_EHelper(ret) {
-    rtl_pop(s, ddest);
+    rtl_pop(s, &(s->dest.val));
   print_asm("ret");
 }
 
