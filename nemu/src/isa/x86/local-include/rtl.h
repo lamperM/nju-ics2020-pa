@@ -33,7 +33,7 @@ static inline def_rtl(push, const rtlreg_t* src1) {
 
 static inline def_rtl(pop, rtlreg_t* dest) {
   // dest <- M[esp]
-    printf("esp: %d\n", cpu.esp);
+    printf("esp: %x\n", cpu.esp);
   rtl_lm(s, dest, &(cpu.esp), 0, s->dest.width);
   printf("get esp data: %x\n", *dest);
   // esp <- esp + 4
