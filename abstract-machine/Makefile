@@ -52,7 +52,7 @@ ARCHIVE   = $(WORK_DIR)/build/$(NAME)-$(ARCH).a
 
 ### Files to be linked: object files (`.o`) and libraries (`.a`)
 OBJS      = $(addprefix $(DST_DIR)/, $(addsuffix .o, $(basename $(SRCS))))
-LIBS     := $(sort am klib) # lazy evaluation ("=") causes infinite recursions
+LIBS     := $(sort $(LIBS) am klib) # lazy evaluation ("=") causes infinite recursions
 $(echo $(LIBS))
 LINKAGE   = $(OBJS) \
   $(addsuffix -$(ARCH).a, $(join \
