@@ -115,17 +115,16 @@ $(DST_DIR)/%.o: %.S
 
 ### Rule (recursive make): build a dependent library (am, klib, ...)
 $(LIBS): %:
-	@echo "+++++++++++" $(LIBS)
 	@$(MAKE)  -C $(AM_HOME)/$* archive
 
 ### Rule (link): objects (`*.o`) and libraries (`*.a`) -> `IMAGE.elf`, the final ELF binary to be packed into image (ld)
 $(IMAGE).elf: $(OBJS) am $(LIBS)
 	@echo + LD "->" $(IMAGE_REL).elf
+	@echo $(LINKAGE)
 	@$(LD) $(LDFLAGS) -o $(IMAGE).elf $(LINKAGE)
 
 ### Rule (archive): objects (`*.o`) -> `ARCHIVE.a` (ar)
 $(ARCHIVE): $(OBJS)
-	@echo $(LIBS)
 	@echo + AR "->" $(shell realpath $@ --relative-to .)
 	@ar rcs $(ARCHIVE) $(OBJS)
 
