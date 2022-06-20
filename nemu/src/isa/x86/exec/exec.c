@@ -59,7 +59,9 @@ static inline def_EHelper(gp4) {
 /* 0xff */
 static inline def_EHelper(gp5) {
     printf("s.isa.moff:%d\n", s->isa.moff);
+    printf("s->dest.val: %d\n", s->dest.val);
   switch (s->isa.ext_opcode) {
+          // PUSHL
     EMPTY(0) EMPTY(1) EMPTY(2) EMPTY(3)
     EMPTY(4) EMPTY(5) EMPTY(6) EMPTY(7)
   }
