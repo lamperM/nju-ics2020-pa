@@ -13,7 +13,7 @@ static inline void set_width(DecodeExecState *s, int width) {
 /* 0x80, 0x81, 0x83 */
 static inline def_EHelper(gp1) {
   //  printf("Operand dest.type: %d, r:%d\n", s->dest.type, s->dest.reg);
-  //  printf("ext_code: %d\n", s->isa.ext_opcode);
+    printf("ext_code: %d\n", s->isa.ext_opcode);
   //  printf("Operand src1.type: %d, val: %d\n", s->src1.type, s->src1.val);
   switch (s->isa.ext_opcode) {
       case 5:
@@ -96,7 +96,7 @@ again:
     IDEX (0x68, I, push) /* push(imm32) */
     IDEXW(0x80, I2E, gp1, 1)
     IDEX (0x81, I2E, gp1)
-    IDEX (0x83, SI2E, gp1) // sub
+    IDEX (0x83, SI2E, gp1) // sub, and
     IDEXW(0x88, mov_G2E, mov, 1)
     IDEX (0x89, mov_G2E, mov)
     IDEXW(0x8a, mov_E2G, mov, 1)
