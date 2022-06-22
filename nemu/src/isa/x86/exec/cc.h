@@ -44,14 +44,10 @@ static inline void rtl_setcc(DecodeExecState *s, rtlreg_t* dest, uint32_t subcod
     default: panic("should not reach here");
   }
 
+  rtl_andi(s, dest, dest, 0); // 清0
   if (is_sat) {
-      rtl_andi(s, dest, dest, 0x01);
       rtl_ori(s, dest, dest, 0x01);
-  } else {
-      rtl_andi(s, dest, dest, 0);
-  }
-
-  printf("dest val: %d\n", *dest);
+  } 
   if (invert) {
     rtl_xori(s, dest, dest, 0x1);
   }
