@@ -34,6 +34,7 @@ static inline void rtl_setcc(DecodeExecState *s, rtlreg_t* dest, uint32_t subcod
     case CC_B:
     case CC_E:
         if (1 == cpu.eflags.ZF) is_sat = 1;
+        break;
     case CC_BE:
     case CC_S:
     case CC_L:
