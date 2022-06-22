@@ -13,8 +13,8 @@ static inline def_EHelper(and) {
 static inline def_EHelper(xor) {
     uint32_t rm_type;
     
-    printf("dest optype: %d, r:%d\n", s->dest.type, s->dest.reg);
-    printf("src1 optype: %d, r:%d\n", s->src1.type, s->src1.reg);
+    // printf("dest optype: %d, r:%d\n", s->dest.type, s->dest.reg);
+    // printf("src1 optype: %d, r:%d\n", s->src1.type, s->src1.reg);
   
   rm_type = s->src1.type;
   if (rm_type == OP_TYPE_REG) {
