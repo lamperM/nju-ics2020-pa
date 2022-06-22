@@ -58,8 +58,8 @@ typedef struct {
             // TODO: unfinish
         };
 
-        rtlreg_t eflags;
-    };
+        rtlreg_t val;
+    } eflags;
 } x86_CPU_state;
 
 
