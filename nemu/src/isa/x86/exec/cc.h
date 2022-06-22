@@ -25,6 +25,7 @@ static inline const char* get_cc_name(int subcode) {
 
 static inline void rtl_setcc(DecodeExecState *s, rtlreg_t* dest, uint32_t subcode) {
   uint32_t invert = subcode & 0x1;
+  uint32_t is_sat = 0;
 
   // TODO: Query EFLAGS to determine whether the condition code is satisfied.
   // dest <- ( cc is satisfied ? 1 : 0)
@@ -32,6 +33,7 @@ static inline void rtl_setcc(DecodeExecState *s, rtlreg_t* dest, uint32_t subcod
     case CC_O:
     case CC_B:
     case CC_E:
+        if (1 == cpu.eflags.ZF) is_sat = 1;
     case CC_BE:
     case CC_S:
     case CC_L:
@@ -41,6 +43,11 @@ static inline void rtl_setcc(DecodeExecState *s, rtlreg_t* dest, uint32_t subcod
     default: panic("should not reach here");
   }
 
+  rtl_andi(s, dest, dest, 0); // 清空
+
+  if (is_sat) {
+      rtl_ori(s, dest, dest, 0x01);
+  }
   if (invert) {
     rtl_xori(s, dest, dest, 0x1);
   }
