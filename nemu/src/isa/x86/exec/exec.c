@@ -23,11 +23,9 @@ static inline def_EHelper(gp1) {
           rtl_subi(s, ddest, ddest, s->src1.simm);
           print_asm_template2(sub);
           break;
-      case 7:
-          TODO();
-          break;
     EMPTY(0) EMPTY(1) EMPTY(2) EMPTY(3)
     EMPTY(6)
+    EMPTY(7)
 
   }
 }
