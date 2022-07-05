@@ -27,6 +27,8 @@ static inline def_EHelper(gp1) {
     EMPTY(0) EMPTY(1) EMPTY(2) EMPTY(3)
     EMPTY(6)
       case 7:
+          /* Acutally, CMP instruction do NOT care the result of sub,
+           * but only update the flags. So this may be a bug. */
           rtl_subi(s, ddest, ddest, s->src1.simm);
           rtl_update_ZFSF(s, ddest, s->width); 
           break;
