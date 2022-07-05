@@ -68,7 +68,7 @@ static inline def_EHelper(gp5) {
       case 6:
           // PUSHL
           rtl_push(s, ddest);
-          print_asm_template2(push);
+          print_asm_template1(push);
           break;
     EMPTY(0) EMPTY(1) EMPTY(2) EMPTY(3)
     EMPTY(4) EMPTY(5) EMPTY(7)
