@@ -21,11 +21,16 @@ static inline def_EHelper(gp1) {
       case 5:
           // SUB
           rtl_subi(s, ddest, ddest, s->src1.simm);
+          rtl_update_ZFSF(s, ddest, s->width); 
           print_asm_template2(sub);
           break;
     EMPTY(0) EMPTY(1) EMPTY(2) EMPTY(3)
     EMPTY(6)
-    EMPTY(7)
+      case 7:
+          rtl_subi(s, ddest, ddest, s->src1.simm);
+          rtl_update_ZFSF(s, ddest, s->width); 
+          break;
+          
 
   }
 }

@@ -79,12 +79,22 @@ def_rtl_setget_eflags(SF)
 
 static inline def_rtl(update_ZF, const rtlreg_t* result, int width) {
   // eflags.ZF <- is_zero(result[width * 8 - 1 .. 0])
-  TODO();
+  // add by wanglu 07.15
+  if (0 == *result) {
+      cpu.eflags.ZF = 1;
+  } else {
+      cpu.eflags.ZF = 0;
+  }
 }
 
 static inline def_rtl(update_SF, const rtlreg_t* result, int width) {
   // eflags.SF <- is_sign(result[width * 8 - 1 .. 0])
-  TODO();
+  // add by wanglu 07.15
+    if (1 == result[width * 8 - 1]) {
+        cpu.eflags.SF = 1;
+    } else {
+        cpu.eflags.SF = 0;
+    }
 }
 
 static inline def_rtl(update_ZFSF, const rtlreg_t* result, int width) {
