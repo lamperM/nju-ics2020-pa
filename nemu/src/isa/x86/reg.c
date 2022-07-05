@@ -83,9 +83,12 @@ word_t isa_reg_str2val(const char *s, bool *success) {
     for (int i = 0; i < len; i++) 
         s_dup[i] = tolower(s_dup[i]);
 
-    /* pc is special, check first */
+    /* pc and eflags is special, check first */
     if (strcmp(s_dup, "pc") == 0) {
         return cpu.pc;
+    }
+    if (strcmp(s_dup, "eflags") == 0) {
+        return cpu.eflags.val;
     }
     for (int i = 0; i < 8; i++) {
         if (strcmp(s_dup, regsl[i]) == 0) 
