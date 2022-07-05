@@ -26,6 +26,10 @@ static inline def_EHelper(popa) {
 
 static inline def_EHelper(leave) {
   // added by wanglu 07.06
+  // 1. move ebp to esp
+  rtl_mv(s, &(cpu.esp), &(cpu.ebp));
+  // 2. pop to ebp
+  rtl_pop(s, &(cpu.ebp));
   print_asm("leave");
 }
 
