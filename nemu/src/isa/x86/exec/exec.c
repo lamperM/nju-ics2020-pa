@@ -24,7 +24,6 @@ static inline def_EHelper(gp1) {
           print_asm_template2(sub);
           break;
       case 7:
-          printf("hello\n");
           break;
     EMPTY(0) EMPTY(1) EMPTY(2) EMPTY(3)
     EMPTY(6)
