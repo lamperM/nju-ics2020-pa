@@ -30,7 +30,7 @@ static inline def_EHelper(gp1) {
           /* Acutally, CMP instruction do NOT care the result of sub,
            * but only update the flags. So this may be a bug. */
           rtl_subi(s, ddest, ddest, s->src1.simm);
-          rtl_update_ZFSF(s, ddest, s->width); 
+          rtl_update_ZFSF(s, ddest, s->dest.width); 
           print_asm_template2(cmp);
           break;
           
@@ -113,6 +113,7 @@ again:
     IDEX (0x56, r, push) /* push(ESI) */
     IDEX (0x57, r, push) /* push(EDI) */
     IDEX (0x68, I, push) /* push(imm32) */
+    IDEXW(0x74, I, jcc, 1) /* jz */
     IDEXW(0x80, I2E, gp1, 1)
     IDEX (0x81, I2E, gp1)
     IDEX (0x83, SI2E, gp1) // sub, and
