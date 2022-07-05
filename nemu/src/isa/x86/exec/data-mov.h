@@ -25,7 +25,7 @@ static inline def_EHelper(popa) {
 }
 
 static inline def_EHelper(leave) {
-  TODO();
+  // added by wanglu 07.06
   print_asm("leave");
 }
 
