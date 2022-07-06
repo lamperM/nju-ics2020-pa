@@ -55,7 +55,9 @@ static inline def_EHelper(cwtl) {
 }
 
 static inline def_EHelper(movsx) {
+    printf("before dest->width: %d\n", id_dest->width);
   id_dest->width = s->isa.is_operand_size_16 ? 2 : 4;
+    printf("after dest->width: %d\n", id_dest->width);
   rtl_sext(s, ddest, dsrc1, id_src1->width);
   operand_write(s, id_dest, ddest);
   print_asm_template2(movsx);
