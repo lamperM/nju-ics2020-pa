@@ -42,7 +42,7 @@ static inline def_EHelper(gp1) {
 static inline def_EHelper(gp2) {
   switch (s->isa.ext_opcode) {
       case 5:
-          printf("hello, world\n");
+          rtl_shri(s, ddest, ddest, s->src1.imm);
           break;
     EMPTY(0) EMPTY(1) EMPTY(2) EMPTY(3)
     EMPTY(4) EMPTY(6) EMPTY(7)
