@@ -42,7 +42,7 @@ static inline def_EHelper(gp1) {
 static inline def_EHelper(gp2) {
   switch (s->isa.ext_opcode) {
       case 5:
-          rtl_shri(s, ddest, ddest, s->src1.imm);
+          exec_shr(s);
           break;
     EMPTY(0) EMPTY(1) EMPTY(2) EMPTY(3)
     EMPTY(4) EMPTY(6) EMPTY(7)
@@ -118,6 +118,7 @@ again:
     IDEX (0x58, r, pop)  /* pop(EAX) */
     IDEX (0x5a, r, pop)  /* pop(EDX) */
     IDEX (0x68, I, push) /* push(imm32) */
+    IDEXW(0x6a, I, push, 1) /* push(imm8) */
     IDEXW(0x74, J, jcc, 1) /* jcc */
     IDEXW(0x80, I2E, gp1, 1)
     IDEX (0x81, I2E, gp1)
