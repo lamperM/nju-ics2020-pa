@@ -54,8 +54,9 @@ static inline def_EHelper(shl) {
 }
 
 static inline def_EHelper(shr) {
-  TODO();
   // unnecessary to update CF and OF in NEMU
+  // add by wanglu 7.6
+  rtl_shri(s, ddest, ddest, s->src1.imm);
   print_asm_template2(shr);
 }
 
