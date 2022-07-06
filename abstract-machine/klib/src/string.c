@@ -8,7 +8,16 @@ size_t strlen(const char *s) {
 }
 
 char *strcpy(char* dst,const char* src) {
-  return NULL;
+    const char *p = src;
+    char *q = dst;
+
+    while(*p != '\0') {
+        *q = *p;
+        p++;
+        q++;
+    }
+    *q = '\0'; // add terminator
+  return dst;
 }
 
 char* strncpy(char* dst, const char* src, size_t n) {
