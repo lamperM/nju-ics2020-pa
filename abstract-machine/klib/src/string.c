@@ -20,7 +20,26 @@ char* strcat(char* dst, const char* src) {
 }
 
 int strcmp(const char* s1, const char* s2) {
-  return 0;
+    assert(NULL != s1 && NULL != s2);
+
+    const char *p = s1;
+    const char *q = s2;
+    int res = 0;
+
+    while (*p != '\0' && *q != '\0') {
+        if (*p == *q) {
+            p++;
+            q++;
+        } else {
+            res = *p - *q;
+            break;
+        }
+    }
+
+    if (*p == '\0' && *q != '\0') res = -1;
+    if (*p != '\0' && *q == '\0') res = 1;
+
+    return res;
 }
 
 int strncmp(const char* s1, const char* s2, size_t n) {
