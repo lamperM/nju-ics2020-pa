@@ -112,7 +112,8 @@ again:
     IDEX (0x55, r, push) /* push(EBP) */
     IDEX (0x56, r, push) /* push(ESI) */
     IDEX (0x57, r, push) /* push(EDI) */
-    IDEX (0x58, r, pop)     /* pop */
+    IDEX (0x58, r, pop)  /* pop(EAX) */
+    IDEX (0x5a, r, pop)  /* pop(EDX) */
     IDEX (0x68, I, push) /* push(imm32) */
     IDEXW(0x74, J, jcc, 1) /* jcc */
     IDEXW(0x80, I2E, gp1, 1)
