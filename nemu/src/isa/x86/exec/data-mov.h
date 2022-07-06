@@ -10,7 +10,8 @@ static inline def_EHelper(push) {
 }
 
 static inline def_EHelper(pop) {
-  TODO();
+  // add by wanglu 7.6
+  rtl_pop(s, ddest);
   print_asm_template1(pop);
 }
 
