@@ -29,6 +29,7 @@ static inline def_rtl(neg, rtlreg_t *dest, const rtlreg_t* src1) {
 
 static inline def_rtl(sext, rtlreg_t* dest, const rtlreg_t* src1, int width) {
   // dest <- signext(src1[(width * 8 - 1) .. 0])
+  printf("src1: 0x%x\n", *src1); 
   TODO();
 }
 
