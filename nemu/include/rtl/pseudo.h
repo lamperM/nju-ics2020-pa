@@ -30,10 +30,10 @@ static inline def_rtl(neg, rtlreg_t *dest, const rtlreg_t* src1) {
 static inline def_rtl(sext, rtlreg_t* dest, const rtlreg_t* src1, int width) {
   // dest <- signext(src1[(width * 8 - 1) .. 0])
     // add by wanglu 7.7 
+    // !!Could be a misunderstanding of signed extention.
     *dest = *src1;
     for (int i = width * 8; i < id_dest->width * 8; i++) {
         dest[i] = src1[width * 8 - 1];
-        printf("i = %d\n", i);
     }
 }
 
