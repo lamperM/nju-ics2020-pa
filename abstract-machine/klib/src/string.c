@@ -41,7 +41,7 @@ int strcmp(const char* s1, const char* s2) {
             q++;
         } else {
             res = *p - *q;
-            return -1;
+            return res;
             break;
         }
     }
