@@ -58,8 +58,10 @@ static inline def_DopHelper(SI) {
    */
     sword_t simm = instr_fetch(&s->seq_pc, op->width);
 
-    printf("simm = %d\n", (int8_t)simm );
-    operand_imm(s, op, load_val, simm, op->width);
+    if (op->width == 1) 
+        operand_imm(s, op, load_val, (int8_t)simm, op->width);
+    else 
+        operand_imm(s, op, load_val, (int32_t)simm, op->width);
 }
 
 /* I386 manual does not contain this abbreviation.
