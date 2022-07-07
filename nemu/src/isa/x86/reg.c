@@ -56,6 +56,8 @@ void isa_reg_display() {
     //printf("\n");
 
     printf("pc: 0x%08X\n",cpu.pc);
+    printf("eflags: 0x%08X(ZF = %d, CF = %d)\n", 
+            cpu.eflags.val, cpu.eflags.ZF, cpu.eflags.CF);
     
     /*
     bool success;
