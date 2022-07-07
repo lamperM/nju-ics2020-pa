@@ -60,7 +60,7 @@ static inline def_DopHelper(SI) {
 
     if (op->width == 1) 
         operand_imm(s, op, load_val, (int8_t)simm, op->width);
-    else 
+    else if (op->width == 4) 
         operand_imm(s, op, load_val, (int32_t)simm, op->width);
 }
 
@@ -270,7 +270,7 @@ static inline def_DHelper(J) {
   decode_op_SI(s, id_dest, false);
   // the target address can be computed in the decode stage
   s->jmp_pc = id_dest->simm + s->seq_pc;
-  printf("s->seq_pc = %x\n", s->seq_pc);
+  printf("s->seq_pc = %x\n", s->jmp_pc);
 }
 
 static inline def_DHelper(push_SI) {
