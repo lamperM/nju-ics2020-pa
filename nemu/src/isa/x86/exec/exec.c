@@ -14,7 +14,9 @@ static inline void set_width(DecodeExecState *s, int width) {
 static inline def_EHelper(gp1) {
   switch (s->isa.ext_opcode) {
       case 0:
-          printf("hello\n");
+          // ADD
+          rtl_addi(s, ddest, ddest, id_src1->simm);
+          print_asm_template2(add);
           break;
       case 4: 
           // AND
