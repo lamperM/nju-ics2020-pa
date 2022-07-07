@@ -103,6 +103,7 @@ again:
   s->opcode = opcode;
   switch (opcode) {
     EX   (0x0f, 2byte_esc)
+    IDEX (0x29, G2E, sub)
     IDEX (0x31, G2E, xor); // xor(31)
     IDEXW(0x38, G2E, cmp, 1)
     IDEX (0x50, r, push) /* push(EAX) */
