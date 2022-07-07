@@ -13,6 +13,9 @@ static inline void set_width(DecodeExecState *s, int width) {
 /* 0x80, 0x81, 0x83 */
 static inline def_EHelper(gp1) {
   switch (s->isa.ext_opcode) {
+      case 0:
+          printf("hello\n");
+          break;
       case 4: 
           // AND
           rtl_andi(s, ddest, ddest, s->src1.simm);
@@ -24,7 +27,7 @@ static inline def_EHelper(gp1) {
           rtl_update_ZFSF(s, ddest, s->dest.width); 
           print_asm_template2(sub);
           break;
-    EMPTY(0) EMPTY(1) EMPTY(2) EMPTY(3)
+    EMPTY(1) EMPTY(2) EMPTY(3)
     EMPTY(6)
       case 7:
           exec_cmp(s);
