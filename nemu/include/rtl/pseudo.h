@@ -19,12 +19,13 @@ static inline def_rtl(mv, rtlreg_t* dest, const rtlreg_t *src1) {
 
 static inline def_rtl(not, rtlreg_t *dest, const rtlreg_t* src1) {
   // dest <- ~src1
-  TODO();
+  *dest = ~(*src1);
 }
 
 static inline def_rtl(neg, rtlreg_t *dest, const rtlreg_t* src1) {
   // dest <- -src1
-  TODO();
+  // add by wanglu 7.8
+  *dest = -1 * (*src1);
 }
 
 static inline def_rtl(sext, rtlreg_t* dest, const rtlreg_t* src1, int width) {
