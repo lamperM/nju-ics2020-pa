@@ -134,6 +134,9 @@ again:
     IDEX (0x59, r, pop)  /* pop(ECX) */
     IDEX (0x5a, r, pop)  /* pop(EDX) */
     IDEX (0x5b, r, pop)  /* pop(EBX) */
+    IDEX (0x5c, r, pop)  /* pop(ESP) */
+    IDEX (0x5d, r, pop)  /* pop(EBP) */
+    IDEX (0x5e, r, pop)  /* pop(ESI) */
     IDEX (0x68, I, push) /* push(imm32) */
     IDEXW(0x6a, I, push, 1) /* push(imm8) */
     IDEXW(0x74, J, jcc, 1) /* jcc */
