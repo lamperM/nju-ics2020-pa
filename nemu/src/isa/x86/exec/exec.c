@@ -54,7 +54,7 @@ static inline def_EHelper(gp2) {
 static inline def_EHelper(gp3) {
   switch (s->isa.ext_opcode) {
       case 3: // NEG
-
+          rtl_neg(s, ddest, ddest);
           break;
     EMPTY(0) EMPTY(1) EMPTY(2) 
     EMPTY(4) EMPTY(5) EMPTY(6) EMPTY(7)
