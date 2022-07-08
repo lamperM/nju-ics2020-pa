@@ -109,8 +109,15 @@ again:
   switch (opcode) {
     EX   (0x0f, 2byte_esc)
     IDEX (0x29, G2E, sub)
-    IDEX (0x31, G2E, xor); // xor(31)
+    IDEX (0x31, G2E, xor) // xor(31)
     IDEXW(0x38, G2E, cmp, 1)
+    IDEX (0x40, r, inc)
+    IDEX (0x41, r, inc)
+    IDEX (0x42, r, inc)
+    IDEX (0x43, r, inc)
+    IDEX (0x44, r, inc)
+    IDEX (0x45, r, inc)
+    IDEX (0x46, r, inc)
     IDEX (0x50, r, push) /* push(EAX) */
     IDEX (0x51, r, push) /* push(ECX) */
     IDEX (0x52, r, push) /* push(EDX) */
