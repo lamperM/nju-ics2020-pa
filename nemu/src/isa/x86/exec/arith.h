@@ -20,7 +20,9 @@ static inline def_EHelper(cmp) {
 }
 
 static inline def_EHelper(inc) {
+    printf("Before inc: %d\n", *ddest);
   (*ddest)++;
+    printf("After inc: %d\n", *ddest);
   print_asm_template1(inc);
 }
 
