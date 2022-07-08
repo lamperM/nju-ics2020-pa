@@ -95,6 +95,7 @@ static inline def_EHelper(2byte_esc) {
   /* TODO: Add more instructions!!! */
     IDEX (0x01, gp7_E, gp7)
     IDEX (0x94, setcc_E, setcc)
+    IDEX (0x95, setcc_E, setcc)
     IDEX (0xb6, mov_E2G, movzx) // 不能打印al 和 eax, 因为 set_width() 中统一设置的 
     IDEX (0xbe, mov_E2G, movsx); // add by wanglu 7.7
     default: exec_inv(s);
