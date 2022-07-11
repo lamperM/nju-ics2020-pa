@@ -16,6 +16,7 @@ static inline def_EHelper(gp1) {
       case 0:
           // ADD
           rtl_addi(s, ddest, ddest, id_src1->simm);
+          rtl_update_ZFSF(s, ddest, s->dest.width); 
           print_asm_template2(add);
           break;
       case 4: 
