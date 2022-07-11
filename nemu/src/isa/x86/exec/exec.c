@@ -117,6 +117,7 @@ again:
     IDEX (0x29, G2E, sub)
     IDEX (0x31, G2E, xor) // xor(31)
     IDEXW(0x38, G2E, cmp, 1)
+    IDEX (0x39, G2E, cmp)
     IDEX (0x40, r, inc)
     IDEX (0x41, r, inc)
     IDEX (0x42, r, inc)
