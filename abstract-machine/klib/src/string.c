@@ -53,7 +53,6 @@ int strcmp(const char* s1, const char* s2) {
         } else {
             res = *p - *q;
             return res;
-            break;
         }
     }
 
@@ -68,7 +67,13 @@ int strncmp(const char* s1, const char* s2, size_t n) {
 }
 
 void* memset(void* v,int c,size_t n) {
-  return NULL;
+    unsigned char *p = v;
+    
+    while (n--) {
+        *(p++) = (unsigned char)c;
+    }
+
+    return v;
 }
 
 void* memmove(void* dst,const void* src,size_t n) {
@@ -80,7 +85,23 @@ void* memcpy(void* out, const void* in, size_t n) {
 }
 
 int memcmp(const void* s1, const void* s2, size_t n) {
-  return 0;
+    assert(NULL != s1 && NULL != s2);
+
+    const unsigned char *p = s1;
+    const unsigned char *q = s2;
+    int res = 0;
+
+    while (n--) {
+        if (*p == *q) {
+            p++;
+            q++;
+        } else {
+            res = *p - *q;
+            return res;
+        }
+    }
+
+    return 0;
 }
 
 #endif
