@@ -72,3 +72,14 @@ static inline def_EHelper(lea) {
   operand_write(s, id_dest, ddest);
   print_asm_template2(lea);
 }
+
+static inline def_EHelper(xchg) {
+    // add by wanglu 7.11
+    // Don't be sure of how to implement
+
+    // operand_write(s, s0, id_dest);
+    // operand_write(s, id_dest, &(cpu.eax));
+    // operand_write(s, &(cpu.eax), s0);
+	// print_asm_template2(xchg)
+}
+
