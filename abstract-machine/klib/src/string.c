@@ -70,7 +70,7 @@ void* memset(void* v,int c,size_t n) {
     unsigned char *p = v;
     
     while (n--) {
-        *(p++) = (unsigned char)c;
+        *p++ = (unsigned char)c;
     }
 
     return v;
