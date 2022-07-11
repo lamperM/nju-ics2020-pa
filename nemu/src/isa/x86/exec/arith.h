@@ -15,8 +15,8 @@ static inline def_EHelper(sub) {
 static inline def_EHelper(cmp) {
   /* Acutally, CMP instruction do NOT care the result of sub,
    * but only update the flags. So this may be a bug. */
-  rtl_sub(s, ddest, ddest, dsrc1);
-  rtl_update_ZFSF(s, ddest, s->dest.width); 
+  rtl_sub(s, s0, ddest, dsrc1);
+  rtl_update_ZFSF(s, s0, s->dest.width); 
   print_asm_template2(cmp);
 }
 
