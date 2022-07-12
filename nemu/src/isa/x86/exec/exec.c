@@ -141,8 +141,8 @@ again:
     IDEX (0x5d, r, pop)  /* pop(EBP) */
     IDEX (0x5e, r, pop)  /* pop(ESI) */
     IDEX (0x5f, r, pop)  /* pop(EDI) */
-    IDEX (0x68, I, push) /* push(imm32) */
-    IDEXW(0x6a, I, push, 1) /* push(imm8) */
+    IDEX (0x68, push_SI, push) /* push(imm32) */
+    IDEXW(0x6a, push_SI, push, 1) /* push(imm8) */
     IDEXW(0x74, J, jcc, 1) /* jcc */
     IDEXW(0x75, J, jcc, 1) /* jcc */
     IDEXW(0x80, I2E, gp1, 1)
