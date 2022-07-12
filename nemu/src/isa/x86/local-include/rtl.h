@@ -25,17 +25,25 @@ static inline def_rtl(sr, int r, const rtlreg_t* src1, int width) {
 }
 
 static inline def_rtl(push, const rtlreg_t* src1) {
-  // esp <- esp - 4
-  cpu.esp -= 4;
-  // M[esp] <- src1
-  rtl_sm(s, &(cpu.esp), 0, src1, 4);
+    // add by wanglu 7.12
+    // Based on my understanding, push/poll operation always write/read 4 byte. 
+    // So I set the width to fixed number: 4
+
+    // esp <- esp - 4
+    cpu.esp -= 4;
+    // M[esp] <- src1
+    rtl_sm(s, &(cpu.esp), 0, src1, 4);
 }
 
 static inline def_rtl(pop, rtlreg_t* dest) {
-  // dest <- M[esp]
-  rtl_lm(s, dest, &(cpu.esp), 0, s->dest.width);
-  // esp <- esp + 4
-  cpu.esp += 4;
+    // add by wanglu 7.12
+    // Based on my understanding, push/poll operation always write/read 4 byte. 
+    // So I set the width to fixed number: 4
+
+    // dest <- M[esp]
+    rtl_lm(s, dest, &(cpu.esp), 0, 4);
+    // esp <- esp + 4
+    cpu.esp += 4;
 }
 
 static inline def_rtl(is_sub_overflow, rtlreg_t* dest,
