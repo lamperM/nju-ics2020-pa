@@ -28,6 +28,7 @@ static inline def_rtl(push, const rtlreg_t* src1) {
   // esp <- esp - 4
   cpu.esp -= 4;
   // M[esp] <- src1
+  printf("Ready to push data: 0x%x\n", *src1);
   rtl_sm(s, &(cpu.esp), 0, src1, s->dest.width);
 }
 
