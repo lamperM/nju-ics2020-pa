@@ -5,7 +5,6 @@ static inline def_EHelper(mov) {
 
 static inline def_EHelper(push) {
   // target data is stored in s->dest at the decode stage
-  printf("Ready to push data: 0x%x\n", *ddest);
   rtl_push(s, ddest);
   print_asm_template1(push);
 }
